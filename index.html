@@ -1,10 +1,58 @@
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
+<meta charset="utf-8" >
 <script type="text/javascript" src="script/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-$.ajax({ url: 'http://localhost/www/nataliawlodarczyk', success: function(data) { alert(data); console.log(data); } });
+/*
+//SKRYPT DO POBIERANIA STRONY - działa na localhost problem z zewnetrznymi linkami i prawami dostepu
+
+$.ajax({ url: '// URL STRONY //', success: function(data) { 
+console.log(data); //Wypisujemy ze zmiennej zawartość strony podanej w polu // URL STRONY //
+} 
+
+//Skrypt do wyszukiwania formularza i jego elementów w zmiennej data i wrzucenie ich do generatora by edytować. -- do zrobienia
+});*/
+
+//GENERATOR FORMULARZA -- koncept cały kod generowany do znacznika div o id formGenerator
+var addToGenerator = function(e) {
+	var generator = document.getElementById("formGenerator");
+	if(e == 1) {
+		var formElement = document.createElement("input");
+		formElement.setAttribute('type','submit');
+		formElement.setAttribute('value','nazwa przycisku');
+		generator.appendChild(formElement);
+	} else if(e == 2) {
+		var formElement = document.createElement("input");
+		formElement.setAttribute('type','text');
+		formElement.setAttribute('placeholder','pole zachecajace...');
+		generator.appendChild(formElement);
+	} else if(e == 3) {
+		var formElement = document.createElement("br");
+		generator.appendChild(formElement);
+	} else {
+		console.log("Błąd przy dodawaniu elementu do kreatora formularza");
+	}
+
+}
+
 </script>
 </head>
 <body>
+	<h1> Menu: </h1>
+	<div id="generatorMenu">
+		<input type="submit" onclick="addToGenerator(1);" value="Dodaj przycisk"><br />
+		<input type="submit" onclick="addToGenerator(2);" value="Dodaj pole"><br />
+		<input type="submit" onclick="addToGenerator(3);" value="Nowa linia"><br />
+
+		<!-- można sprawdzać wartości i określać właściwości elementu jeśli nie jest puste - do zrobienia-->
+		<h2> do zrobienia: </h2>
+		<input type="text" placeholder="Jaki margines od lewej?"><br />
+		<input type="text" placeholder="Jaki margines od góry?"><br />
+		<input type="text" placeholder="Jaki padding?"><br />
+		<input type="text" placeholder="Jaka szerokosc?"><br />
+		<input type="text" placeholder="Jaka wysokosc?">
+	</div>
+	<h1> Podglad: </h1>
+	<div id="formGenerator"></div>
 </body>
