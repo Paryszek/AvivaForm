@@ -13,17 +13,15 @@ $.ajax({ url: 'http://localhost/testpage', success: function(data) {
 		var x = document.getElementsByClassName("no-margin-no-padding");
 		for (i=0; i < x.length; i++) {
 			x[i].onclick = function () {
-				console.log(this.textContent);
-				zmiana(this);
 				checkMe(this);
+				zmiana(this);
 			}
 		}
 		var b = document.getElementsByTagName("button");
 		for(i=0; i < b.length; i++) {
 			b[i].onclick = function () {
-				console.log(this.textContent);
-				zmiana(this);
 				checkMe(this);
+				zmiana(this);
 			}
 		}
 	}
@@ -63,7 +61,13 @@ function zmiana (e) {
 
 
 var checkMe = function(e) {
-	console.log(e.style.marginLeft); // wypisuje margines elementu w konsoli po wcisnieciu
+	var s = window.getComputedStyle(e);
+	console.log("Margines Left: " + s.marginLeft);
+	console.log("Margines Top: " + s.marginTop);
+	console.log("Padding: " + s.padding);
+	console.log("Szerokosc: " + s.width);
+	console.log("Wysokosc: " + s.height);
+	e.style.marginLeft = "5px"; // zmiana marginesu
 }
 
 </script>
