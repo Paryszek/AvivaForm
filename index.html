@@ -5,17 +5,32 @@
 <script type="text/javascript" src="script/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 // Pobieramy formularz z podanego linku na tej samej domenie i wrzucamy go do podglądu
-$.ajax({ url: 'http://localhost/www/nataliawlodarczyk', success: function(data) { 
+$.ajax({ url: 'http://localhost/testpage', success: function(data) {
 		var page = document.getElementById("toFetchFormFromOtherPage");
 		page.innerHTML = data;
 		var formGenerator = document.getElementById('formGenerator');
 		formGenerator.innerHTML = document.getElementsByTagName("form")[0].innerHTML;
-	} 
+		var x = document.getElementsByClassName("no-margin-no-padding");
+		for (i=0; i < x.length; i++) {
+			x[i].onclick = function () {
+				console.log(this.textContent);
+				zmiana(this);
+			}
+		}
+		var b = document.getElementsByTagName("button");
+		for(i=0; i < b.length; i++) {
+			b[i].onclick = function () {
+				console.log(this.textContent);
+				zmiana(this);
+			}
+		}
+	}
 });
 
 //GENERATOR FORMULARZA -- koncept cały kod generowany do znacznika div o id formGenerator
 var addToGenerator = function(e) {
 	var generator = document.getElementById("formGenerator");
+
 	if(e == 1) {
 		var formElement = document.createElement("input");
 		formElement.setAttribute('type','submit');
@@ -34,6 +49,17 @@ var addToGenerator = function(e) {
 	}
 
 }
+
+function zmiana (e) {
+	var zmiana = prompt("Wprowadz tekst, ktory chcesz tu wstawic", e.textContent);
+	if(zmiana == null || zmiana == "") {
+		return
+	} else {
+		e.textContent = zmiana;
+	}
+}
+
+
 var checkMe = function(e) {
 	console.log(e.style.marginLeft); // wypisuje margines elementu w konsoli po wcisnieciu
 }
