@@ -15,6 +15,7 @@ $.ajax({ url: 'http://localhost/testpage', success: function(data) {
 			x[i].onclick = function () {
 				console.log(this.textContent);
 				zmiana(this);
+				checkMe(this);
 			}
 		}
 		var b = document.getElementsByTagName("button");
@@ -22,6 +23,7 @@ $.ajax({ url: 'http://localhost/testpage', success: function(data) {
 			b[i].onclick = function () {
 				console.log(this.textContent);
 				zmiana(this);
+				checkMe(this);
 			}
 		}
 	}
