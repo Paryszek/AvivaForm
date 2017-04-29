@@ -5,11 +5,13 @@
 <script type="text/javascript" src="script/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 // Pobieramy formularz z podanego linku na tej samej domenie i wrzucamy go do podglądu
-$.ajax({ url: 'http://localhost/testpage', success: function(data) {
+$.ajax({ url: 'http://localhost/testpage/index.html',success: function(data) {
+		
 		var page = document.getElementById("toFetchFormFromOtherPage");
 		page.innerHTML = data;
 		var formGenerator = document.getElementById('formGenerator');
-		formGenerator.innerHTML = document.getElementsByTagName("form")[0].innerHTML;
+		//formGenerator.innerHTML  = document.getElementsByTagName("form")[0].innerHTML; 
+		formGenerator.innerHTML  = document.getElementsByClassName("whole-page")[0].innerHTML; //drobna zmiana pozwalajaca na załaczenie calej strony zamiast jej elemntow do podgladu
 		var x = document.getElementsByClassName("no-margin-no-padding");
 		for (i=0; i < x.length; i++) {
 			x[i].onclick = function () {
@@ -20,6 +22,14 @@ $.ajax({ url: 'http://localhost/testpage', success: function(data) {
 		var b = document.getElementsByTagName("button");
 		for(i=0; i < b.length; i++) {
 			b[i].onclick = function () {
+				checkMe(this);
+				zmiana(this);
+			}
+		}
+			//dodana obsluga elementow ng-binding
+			var c = document.getElementsByClassName("ng-binding");
+		for(i=0; i < c.length; i++) {
+			c[i].onclick = function () {
 				checkMe(this);
 				zmiana(this);
 			}
@@ -69,6 +79,11 @@ var checkMe = function(e) {
 	console.log("Wysokosc: " + s.height);
 	e.style.marginLeft = "5px"; // zmiana marginesu
 }
+
+
+//funkcja do modyfikacji uli!
+//
+
 
 </script>
 </head>
