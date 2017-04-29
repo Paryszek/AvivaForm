@@ -15,6 +15,7 @@ curl_setopt($ch, CURLOPT_HEADER, 0);
 
 // Download the HTML from the URL.
 $content = curl_exec($ch);
+echo($content);
 
 // Check to see if there were errors.
 if(curl_errno($ch)) {

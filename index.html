@@ -4,15 +4,14 @@
 <meta charset="utf-8" >
 <script type="text/javascript" src="script/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-/*
-//SKRYPT DO POBIERANIA STRONY - działa na localhost problem z zewnetrznymi linkami i prawami dostepu
-
-$.ajax({ url: '// URL STRONY //', success: function(data) { 
-console.log(data); //Wypisujemy ze zmiennej zawartość strony podanej w polu // URL STRONY //
-} 
-
-//Skrypt do wyszukiwania formularza i jego elementów w zmiennej data i wrzucenie ich do generatora by edytować. -- do zrobienia
-});*/
+// Pobieramy formularz z podanego linku na tej samej domenie i wrzucamy go do podglądu
+$.ajax({ url: 'http://localhost/www/nataliawlodarczyk', success: function(data) { 
+		var page = document.getElementById("toFetchFormFromOtherPage");
+		page.innerHTML = data;
+		var formGenerator = document.getElementById('formGenerator');
+		formGenerator.innerHTML = document.getElementsByTagName("form")[0].innerHTML;
+	} 
+});
 
 //GENERATOR FORMULARZA -- koncept cały kod generowany do znacznika div o id formGenerator
 var addToGenerator = function(e) {
@@ -35,6 +34,9 @@ var addToGenerator = function(e) {
 	}
 
 }
+var checkMe = function(e) {
+	console.log(e.style.marginLeft); // wypisuje margines elementu w konsoli po wcisnieciu
+}
 
 </script>
 </head>
@@ -47,7 +49,7 @@ var addToGenerator = function(e) {
 
 		<!-- można sprawdzać wartości i określać właściwości elementu jeśli nie jest puste - do zrobienia-->
 		<h2> do zrobienia: </h2>
-		<input type="text" placeholder="Jaki margines od lewej?"><br />
+		<input onclick="checkMe(this);" style="margin-left:5px;" type="text" placeholder="Jaki margines od lewej?"><br />
 		<input type="text" placeholder="Jaki margines od góry?"><br />
 		<input type="text" placeholder="Jaki padding?"><br />
 		<input type="text" placeholder="Jaka szerokosc?"><br />
@@ -55,4 +57,5 @@ var addToGenerator = function(e) {
 	</div>
 	<h1> Podglad: </h1>
 	<div id="formGenerator"></div>
+	<div style="display:none;" id="toFetchFormFromOtherPage"></div>
 </body>
