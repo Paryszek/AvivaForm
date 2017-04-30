@@ -5,36 +5,61 @@
 <script type="text/javascript" src="script/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 // Pobieramy formularz z podanego linku na tej samej domenie i wrzucamy go do podglądu
-$.ajax({ url: 'http://localhost/testpage/index.html',success: function(data) {
-		
-		var page = document.getElementById("toFetchFormFromOtherPage");
-		page.innerHTML = data;
-		var formGenerator = document.getElementById('formGenerator');
-		//formGenerator.innerHTML  = document.getElementsByTagName("form")[0].innerHTML; 
-		formGenerator.innerHTML  = document.getElementsByClassName("whole-page")[0].innerHTML; //drobna zmiana pozwalajaca na załaczenie calej strony zamiast jej elemntow do podgladu
-		var x = document.getElementsByClassName("no-margin-no-padding");
-		for (i=0; i < x.length; i++) {
-			x[i].onclick = function () {
-				checkMe(this);
-				zmiana(this);
-			}
+
+/*$.get('a.html', null, function(text){
+    alert($(text).find('#name'));
+});*/
+$(window).load(function () { 
+		function ajaxCall() { 
+			$.ajax({ url: 'stronaZFormularzem.html',success: function(data) {
+				var page = document.getElementById("toFetchFormFromOtherPage");
+				page.innerHTML = data;
+				var formGenerator = document.getElementById('formGenerator');
+				var outerForm = document.getElementsByTagName("form")[0];
+				formGenerator.innerHTML  = outerForm.innerHTML; 
+				//formGenerator.innerHTML  = document.getElementsByClassName("whole-page")[0].innerHTML; //drobna zmiana pozwalajaca na załaczenie calej strony zamiast jej elemntow do podgladu
+				/*var x = document.getElementsByClassName("no-margin-no-padding");
+				for (i=0; i < x.length; i++) {
+					x[i].onclick = function () {
+						checkMe(this);
+						zmiana(this);
+					}
+				}
+				var b = document.getElementsByTagName("button");
+				for(i=0; i < b.length; i++) {
+					b[i].onclick = function () {
+						checkMe(this);
+						zmiana(this);
+					}
+				}
+					//dodana obsluga elementow ng-binding
+					var c = document.getElementsByClassName("ng-binding");
+				for(i=0; i < c.length; i++) {
+					c[i].onclick = function () {
+						checkMe(this);
+						zmiana(this);
+						}
+					}
+				}*/
+					var nodes = outerForm.childNodes;
+				    for(var i=0; i<nodes.length; i++) {
+				    	var nodes = outerForm.childNodes;
+				    	do {
+				    		
+				    	} while(nodes.length != 0);
+				    	 console.log(nodes[i]);
+				         if (nodes[i].nodeName.toLowerCase() != 'div') {
+				        	 checkMe(nodes[i]);
+							 zmiana(nodes[i]);
+				    	 } 
+
+				    	 
+				    }
+				}
+				
+			});
 		}
-		var b = document.getElementsByTagName("button");
-		for(i=0; i < b.length; i++) {
-			b[i].onclick = function () {
-				checkMe(this);
-				zmiana(this);
-			}
-		}
-			//dodana obsluga elementow ng-binding
-			var c = document.getElementsByClassName("ng-binding");
-		for(i=0; i < c.length; i++) {
-			c[i].onclick = function () {
-				checkMe(this);
-				zmiana(this);
-			}
-		}
-	}
+		ajaxCall();
 });
 
 //GENERATOR FORMULARZA -- koncept cały kod generowany do znacznika div o id formGenerator
@@ -103,6 +128,6 @@ var checkMe = function(e) {
 		<input type="text" placeholder="Jaka wysokosc?">
 	</div>
 	<h1> Podglad: </h1>
-	<div id="formGenerator"></div>
+	<div style="background-color:antiquewhite; padding:100px;" id="formGenerator"></div>
 	<div style="display:none;" id="toFetchFormFromOtherPage"></div>
 </body>

@@ -1,0 +1,353 @@
+/* ==========================================================================
+
+	PRINT
+
+	========================================================================== */
+
+/*  Hide elements
+	========================================================================== */
+
+.masthead__skip-links,
+.masthead__loggedin-links,
+.nav--main,
+.contextual-help,
+.footer,
+.media__controls,
+.list-progress,
+.form-row__help__control,
+.form-option__label:before,
+.form-option__label:after,
+.form-option__ui,
+.search,
+.flexbox .search,
+.breadcrumb,
+.pagination,
+.btn--print,
+.u-no-print,
+.modal__cancel,
+.btn--cancel,
+.modal,
+.modal-overlay,
+.loader-container,
+.loader,
+.hub-link,
+.product-tabs__group-heading,
+.product-tabs__tab,
+.product-tab-category__link:before,
+.a-checkbox__label:before,
+.a-checkbox__label:after,
+.a-checkbox__ui,
+.m-site-country-selection,
+.m-masthead__extra-content,
+.m-masthead__skip-links,
+.m-masthead-navigation {
+	display: none;
+}
+
+/*  Remove colour / simplify
+	========================================================================== */
+.svg .m-masthead-logo {
+	background: none;
+}
+.svg .m-masthead-logo__image {
+	visibility: visible;
+}
+
+.masthead {
+	background: #fff;
+	padding-bottom: 0;
+}
+
+.masthead-logo {
+	margin: 0;
+}
+
+h1,
+.heading--1,
+h2,
+.heading--2,
+h3,
+.heading--3,
+h4,
+.heading--4,
+h5,
+.heading--5,
+strong.text-highlight,
+.heading--1.text-highlight,
+.heading--2.text-highlight,
+.heading--3.text-highlight,
+a,
+a:visited,
+.btn,
+.btn:visited,
+.btn--primary,
+.btn--transparent,
+.btn--input .btn--input__inner,
+.showhide__heading.is-visible .showhide__control,
+.modal--promo .heading,
+.modal__content-container--promo .heading,
+.modal--promo .modal__content-holder {
+	color: #444;
+}
+
+a[href^='/']:after {
+	content: ' ( "attr(href) ") ';
+	font-size: .8em;
+}
+
+.logo a:link:after {
+	content: none;
+}
+
+.js-hamburger.csstransforms .content-wrapper {
+	overflow-x: hidden;
+}
+
+.btn,
+.btn--primary,
+.btn--transparent,
+.btn--input .btn--input__inner {
+	background: #fff;
+	border-color: #ccc;
+}
+
+html.modal-active {
+	overflow: auto;
+}
+
+.modal-active .whole-page {
+	display: none;
+}
+
+.modal-active .modal {
+	background: #fff !important;
+	bottom: 0;
+	display: block;
+	margin-top: 0 !important;
+	max-width: none;
+	position: static;
+	top: 0;
+	width: 100%;
+}
+
+.modal--promo .modal__content-holder {
+	background: #fff;
+}
+
+
+/*  Radio and checkbox - Redisplay default inputs
+	========================================================================== */
+.form-option,
+.a-checkbox,
+.csstransforms .a-checkbox {
+	background: transparent;
+	padding-left: .625em; /* 10px / 16px */
+}
+
+.form-option__input,
+.a-checkbox__input {
+	float: left;
+	height: auto;
+	left: auto;
+	margin-top: 1.3em;
+	opacity: 1;
+	position: static;
+	top: auto;
+	width: auto;
+	z-index: 1;
+}
+
+.m-checkbox-group .a-checkbox {
+	align-items: unset;
+	display: block;
+}
+
+.form-option__label,
+.a-checkbox__label,
+.a-checkbox__input:checked ~ .a-checkbox__label {
+	background: #fff;
+	color: #444;
+	margin-left: .625em; /* 10px / 16px */
+	padding-left: .625em; /* 10px / 16px */
+	width: auto;
+}
+
+.m-checkbox-group .a-checkbox__label {
+	width: auto;
+}
+
+/*  Tables - Reinstate the accessabilty text to replace the hidden background images
+	========================================================================== */
+.icon--tick,
+.icon--cross,
+.svg .icon--tick,
+.svg .icon--cross {
+	background: none;
+	height: auto;
+	text-indent: 0;
+	width: auto;
+}
+
+/*  Lists - Add unicode tick and cross icons to replace hidden background images
+	========================================================================== */
+.unordered-list > li.unordered-list__item--tick:before,
+.unordered-list > li.unordered-list__item--cross:before {
+	background: none;
+}
+
+.unordered-list > li.unordered-list__item--tick:before {
+	content: '\002714';
+}
+
+.unordered-list > li.unordered-list__item--cross:before {
+	content: '\002716';
+}
+
+/*  Accent colours - remove striping and make all text gark grey on white
+	========================================================================== */
+.t-accent-light,
+.t-accent-light--grey,
+.t-accent-light--white,
+.t-accent-light--yellow,
+.t-accent-dark,
+.t-accent-dark--dark-blue,
+.t-accent-dark--light-blue,
+.t-accent-dark--dark-green,
+.t-accent-dark--dark-purple,
+.t-accent-dark--light-purple,
+.t-accent-dark--pink,
+.t-accent-dark--teal {
+	background-color: #fff;
+	color: #444;
+}
+
+/*  White Text - replace with dark grey
+	========================================================================== */
+.t-accent-dark h1,
+.t-accent-dark h2,
+.t-accent-dark h3,
+.t-accent-dark h4,
+.t-accent-dark h5,
+.t-accent-dark h6,
+.t-accent-dark .heading,
+.t-accent-dark,
+.t-accent-dark .m-card-content,
+.t-accent-dark .m-card-content h2,
+.t-accent-dark .m-card-content .heading,
+a.t-accent-dark:visited,
+.t-accent-dark .download-list-item__inner,
+.t-accent-dark .fonts-loaded .download-list-item__inner,
+.t-accent-dark .download-list-item__inner:visited,
+.t-accent-dark .fonts-loaded .download-list-item__inner:visited,
+.blockquote--highlight p,
+.blockquote--highlight .blockquote__cite {
+	color: #444;
+}
+
+/*  Hero
+	========================================================================== */
+.m-hero {
+	min-height: auto;
+}
+
+.agent-callback--open {
+	/* must not exceed A4 page width */
+	max-width: 180mm;
+}
+
+/*  Review Stars
+	========================================================================== */
+.review-stars .u-hidden--visually {
+	left: 0;
+	opacity: 1;
+	position: relative;
+}
+
+/*  Product Tabs
+	========================================================================== */
+.product-tabs {
+	display: block;
+}
+.product-tabs__tab {
+	clear: both;
+	width: 100%;
+}
+.product-tabs__tab.is-open {
+	display: block;
+}
+.product-tabs__tab-content {
+	left: 0 !important;
+	width: 100% !important;
+}
+.product-tab-category__link {
+	color: #444;
+}
+
+/*  Accent colours - remove striping and make all text black on white
+	========================================================================== */
+
+.t-accent-light,
+.t-accent-light--grey,
+.t-accent-light--white,
+.t-accent-light--yellow,
+.t-accent-dark,
+.t-accent-dark--dark-blue,
+.t-accent-dark--light-blue,
+.t-accent-dark--dark-green,
+.t-accent-dark--dark-purple,
+.t-accent-dark--light-purple,
+.t-accent-dark--pink,
+.t-accent-dark--teal {
+	background-color: #fff;
+	color: #000;
+}
+.t-accent-dark a,
+.t-accent-dark h1,
+.t-accent-dark h2,
+.t-accent-dark h3,
+.t-accent-dark h4,
+.t-accent-dark h5,
+.t-accent-dark h6,
+.t-accent-dark .heading {
+	color: #000;
+}
+
+/*  Cards - remove images, fix height of full-bleed card, accent colour text
+	========================================================================== */
+
+.m-card img {
+	display: none;
+}
+.m-card-image img,
+.m-card--full-bleed .m-card-image {
+	max-height: 160px;
+}
+
+.csscalc .l-columns--4-large > .m-card--double,
+.csscalc .l-columns--4-large > .l-columns__column.m-card {
+	width: 500px;
+}
+
+.m-card--full-bleed .m-card-image img,
+.m-card--double .m-card-image img {
+	display: none;
+}
+.m-card--full-bleed {
+	height: 10em;
+}
+.m-card-content,
+.compat-object-fit .m-card-content {
+	background-image: none;
+}
+.m-card.t-accent-dark a,
+.m-card.t-accent-dark h1,
+.m-card.t-accent-dark h2,
+.m-card.t-accent-dark h3,
+.m-card.t-accent-dark h4,
+.m-card.t-accent-dark h5,
+.m-card.t-accent-dark h6,
+.m-card.t-accent-dark .heading,
+.m-card-content__inner,
+.m-card-tagline {
+	color: #000;
+}
