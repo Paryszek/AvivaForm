@@ -8,17 +8,30 @@
 <body>
 	<h1> Menu: </h1>
 	<div id="generatorMenu">
-		<input type="submit" onclick="addToGenerator(1);" value="Dodaj przycisk"><br />
-		<input type="submit" onclick="addToGenerator(2);" value="Dodaj pole"><br />
+		Tekst elementu:
+		<input type="text" id="textOfElement" placeholder="Tekst elementu"><br />
+		Kolor elementu:
+		<input type="text" id="colorOfElement" placeholder="Kolor elementu"><br />
+		Margines od góry:
+		<input type="text" id="marginUp" placeholder="Margines od góry"><br />
+		Margines od dołu:
+		<input type="text" id="marginDown" placeholder="Margines od dołu"><br />
+		Margines od lewej:
+		<input type="text" id="marginLeft" placeholder="Margines od lewej"><br />
+		Margines od prawej:
+		<input type="text" id="marginRight" placeholder="Margines od prawej"><br />
+		Padding:
+		<input type="text" id="padding" placeholder="Jaki padding"><br />
+		Szerokość:
+		<input type="text" id="widthOfElement" placeholder="Szerokość"><br />
+		Wysokość:
+		<input type="text" id="heightOfElement" placeholder="Jaka wysokosc?"><br />
+		<input type="submit" onclick="addToGenerator(1);" value="Dodaj przycisk">
+		<input type="submit" onclick="addToGenerator(2);" value="Dodaj pole">
 		<input type="submit" onclick="addToGenerator(3);" value="Nowa linia"><br />
-
-		<!-- można sprawdzać wartości i określać właściwości elementu jeśli nie jest puste - do zrobienia-->
-		<h2> do zrobienia: </h2>
-		<input onclick="checkMe(this);" style="margin-left:5px;" type="text" placeholder="Jaki margines od lewej?"><br />
-		<input type="text" placeholder="Jaki margines od góry?"><br />
-		<input type="text" placeholder="Jaki padding?"><br />
-		<input type="text" placeholder="Jaka szerokosc?"><br />
-		<input type="text" placeholder="Jaka wysokosc?">
+		<hr />
+		<input type="submit" onclick="applyChanges();" value="Zatwierdź zmiany">
+		<input type="submit" onclick="resetChanges();" value="Resetuj">
 	</div>
 	<h1> Podglad: </h1>
 	<div style="background-color:antiquewhite; padding:100px;" id="formGenerator"></div>

@@ -1,29 +1,34 @@
-// Pobieramy formularz z podanego linku na tej samej domenie i wrzucamy go do podglądu
-
-/*$.get('a.html', null, function(text){
-    alert($(text).find('#name'));
-});*/
-
-function zmiana (e) {
-			var zmiana = prompt("Wprowadz tekst, ktory chcesz tu wstawic", e.textContent);
-			if(zmiana == null || zmiana == "") {
-				return
-			} else {
-				e.textContent = zmiana;
-			}
-		}
 
 
-		function checkMe (e) {
-			console.log(e);
-			var s = window.getComputedStyle(e);
-			console.log("Margines Left: " + s.marginLeft);
-			console.log("Margines Top: " + s.marginTop);
-			console.log("Padding: " + s.padding);
-			console.log("Szerokosc: " + s.width);
-			console.log("Wysokosc: " + s.height);
-			e.style.marginLeft = "5px"; // zmiana marginesu
-		}
+/*function zmiana (e) {
+	var zmiana = prompt("Wprowadz tekst, ktory chcesz tu wstawic", e.textContent);
+	if(zmiana == null || zmiana == "") {
+		return
+	} else {
+		e.textContent = zmiana;
+	}
+}*/
+function checkMe (e) {
+	var s = window.getComputedStyle(e);
+	var textOfElement = document.getElementById("textOfElement");
+	var colorOfElement = document.getElementById("colorOfElement");
+	var marginTop = document.getElementById("marginUp");
+	var marginBottom = document.getElementById("marginDown");
+	var marginLeft = document.getElementById("marginLeft");
+	var marginRight = document.getElementById("marginRight");
+	var padding = document.getElementById("padding");
+	var widthOfElement = document.getElementById("widthOfElement");
+	var heightOfElement = document.getElementById("heightOfElement");
+	textOfElement.value = e.innerHTML;
+	padding.value = s.padding;
+	marginTop.value = s.marginTop;
+	colorOfElement.value = s.color;
+	marginBottom.value = s.marginBottom;
+	marginLeft.value = s.marginLeft;
+	marginRight.value = s.marginRight;
+	widthOfElement.value = s.width;
+	heightOfElement.value = s.height;
+}
 
 $(window).load(function () { 
 		
@@ -43,8 +48,7 @@ $(window).load(function () {
 				    	if(e[i].children.length == 0) {
 					         e[i].onclick = function () { checkMe(this); };
 					         //e[i].setAttribute("onclick","checkMe(this);");
-					        // button.addEventListener('click', function)
-							 console.log(e[i]);
+							 //console.log(e[i]);
 						} else {
 							attachFunctionToChildrens(e[i].children);
 						}				    	 
@@ -52,7 +56,6 @@ $(window).load(function () {
 				}
 				var nodes = formGenerator.childNodes;
 				attachFunctionToChildrens(nodes);
-				console.log(nodes);
 				//formGenerator.innerHTML  = document.getElementsByClassName("whole-page")[0].innerHTML; //drobna zmiana pozwalajaca na załaczenie calej strony zamiast jej elemntow do podgladu
 				/*var x = document.getElementsByClassName("no-margin-no-padding");
 				for (i=0; i < x.length; i++) {
@@ -85,8 +88,6 @@ $(window).load(function () {
 		
 		ajaxCall();
 });
-				
-//GENERATOR FORMULARZA -- koncept cały kod generowany do znacznika div o id formGenerator
 var addToGenerator = function(e) {
 	var generator = document.getElementById("formGenerator");
 
@@ -108,9 +109,4 @@ var addToGenerator = function(e) {
 	}
 
 }
-
-
-
-//funkcja do modyfikacji uli!
-//
 
