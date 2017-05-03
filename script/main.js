@@ -13,6 +13,7 @@ function checkMe (e,option) {
 
 	var textOfElement = document.getElementById("textOfElement");
 	var colorOfElement = document.getElementById("colorOfElement");
+	var placeHolder = document.getElementById("placeHolder");
 
 	var marginTop = document.getElementById("marginTop");
 	var marginBottom = document.getElementById("marginBottom");
@@ -27,6 +28,7 @@ function checkMe (e,option) {
 	var widthOfElement = document.getElementById("widthOfElement");
 	var heightOfElement = document.getElementById("heightOfElement");
 
+
 	if(option == 0) {
 		TARGETED_ELEMENT = e;
 		console.log(e.style);
@@ -34,7 +36,11 @@ function checkMe (e,option) {
 
 		textOfElement.value = e.innerHTML;
 
+		nameOfElement.value = e.value;
+
 		colorOfElement.value = s.color;
+
+		placeHolder.value = e.placeholder;
 
 		marginTop.value = s.marginTop;
 		marginBottom.value = s.marginBottom;
@@ -53,13 +59,17 @@ function checkMe (e,option) {
 	
 		e.innerHTML = textOfElement.value; 
 
+		e.value = nameOfElement.value;
+
 		e.style.color = colorOfElement.value;
+
+		e.placeholder = placeHolder.value;
 
 		e.style.marginTop = marginTop.value;
 		e.style.marginBottom = marginBottom.value;
 		e.style.marginLeft = marginLeft.value;
 		e.style.marginRight = marginRight.value;
-		console.log(e.style.paddingTop);
+
 		e.style.paddingTop = paddingTop.value
 		e.style.paddingBottom = paddingBottom.value;
 		e.style.paddingLeft = paddingLeft.value;
@@ -73,7 +83,11 @@ function checkMe (e,option) {
 
 		textOfElement.value = e.innerHTML;
 
+		nameOfElement.value = e.value;
+
 		colorOfElement.value = s.color;
+
+		placeHolder.value = e.placeholder
 
 		marginTop.value = s.marginTop;
 		marginBottom.value = s.marginBottom;
@@ -88,7 +102,7 @@ function checkMe (e,option) {
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
 	} else {
-		console.log("Error checkMe(); function ... option != <0;2>");
+		console.log("Error in checkMe(); function ... arg != <0;2>");
 	}
 }
 
@@ -147,22 +161,23 @@ $(window).load(function () {
 });
 var addToGenerator = function(e) {
 	var generator = document.getElementById("formGenerator");
-
 	if(e == 1) {
 		var formElement = document.createElement("input");
 		formElement.setAttribute('type','submit');
 		formElement.setAttribute('value','nazwa przycisku');
+		formElement.onclick = function () { checkMe(this,0); }
 		generator.appendChild(formElement);
 	} else if(e == 2) {
 		var formElement = document.createElement("input");
 		formElement.setAttribute('type','text');
 		formElement.setAttribute('placeholder','pole zachecajace...');
+		formElement.onclick = function () { checkMe(this,0); }
 		generator.appendChild(formElement);
 	} else if(e == 3) {
 		var formElement = document.createElement("br");
 		generator.appendChild(formElement);
 	} else {
-		console.log("Błąd przy dodawaniu elementu do kreatora formularza");
+		console.log("Error in addToGenerator(); function ... arg != <1;3>");
 	}
 
 }
