@@ -8,35 +8,92 @@
 		e.textContent = zmiana;
 	}
 }*/
-function checkMe (e) {
-	var s = window.getComputedStyle(e);
+var TARGETED_ELEMENT;
+function checkMe (e,option) {
+
 	var textOfElement = document.getElementById("textOfElement");
 	var colorOfElement = document.getElementById("colorOfElement");
-	var marginTop = document.getElementById("marginUp");
-	var marginBottom = document.getElementById("marginDown");
+
+	var marginTop = document.getElementById("marginTop");
+	var marginBottom = document.getElementById("marginBottom");
 	var marginLeft = document.getElementById("marginLeft");
 	var marginRight = document.getElementById("marginRight");
-	var padding = document.getElementById("padding");
+
+	var paddingTop = document.getElementById("paddingTop");
+	var paddingBottom = document.getElementById("paddingBottom");
+	var paddingLeft = document.getElementById("paddingLeft");
+	var paddingRight = document.getElementById("paddingRight");
+
 	var widthOfElement = document.getElementById("widthOfElement");
 	var heightOfElement = document.getElementById("heightOfElement");
-	textOfElement.value = e.innerHTML;
-	padding.value = s.padding;
-	marginTop.value = s.marginTop;
-	colorOfElement.value = s.color;
-	marginBottom.value = s.marginBottom;
-	marginLeft.value = s.marginLeft;
-	marginRight.value = s.marginRight;
-	widthOfElement.value = s.width;
-	heightOfElement.value = s.height;
+
+	if(option == 0) {
+		TARGETED_ELEMENT = e;
+		console.log(e.style);
+		var s = window.getComputedStyle(e);
+
+		textOfElement.value = e.innerHTML;
+
+		colorOfElement.value = s.color;
+
+		marginTop.value = s.marginTop;
+		marginBottom.value = s.marginBottom;
+		marginLeft.value = s.marginLeft;
+		marginRight.value = s.marginRight;
+
+		paddingTop.value = s.paddingTop;
+		paddingBottom.value = s.paddingBottom;
+		paddingLeft.value = s.paddingLeft;
+		paddingRight.value = s.paddingRight;
+
+		widthOfElement.value = s.width;
+		heightOfElement.value = s.height;
+	} else if(option == 1) {
+		e = TARGETED_ELEMENT;
+	
+		e.innerHTML = textOfElement.value; 
+
+		e.style.color = colorOfElement.value;
+
+		e.style.marginTop = marginTop.value;
+		e.style.marginBottom = marginBottom.value;
+		e.style.marginLeft = marginLeft.value;
+		e.style.marginRight = marginRight.value;
+		console.log(e.style.paddingTop);
+		e.style.paddingTop = paddingTop.value
+		e.style.paddingBottom = paddingBottom.value;
+		e.style.paddingLeft = paddingLeft.value;
+		e.style.paddingRight = paddingRight.value;
+
+		e.style.width = widthOfElement.value;
+		e.style.height = heightOfElement.value;
+	} else if(option == 2) {
+		e = TARGETED_ELEMENT;
+		var s = window.getComputedStyle(e);
+
+		textOfElement.value = e.innerHTML;
+
+		colorOfElement.value = s.color;
+
+		marginTop.value = s.marginTop;
+		marginBottom.value = s.marginBottom;
+		marginLeft.value = s.marginLeft;
+		marginRight.value = s.marginRight;
+
+		paddingTop.value = s.paddingTop;
+		paddingBottom.value = s.paddingBottom;
+		paddingLeft.value = s.paddingLeft;
+		paddingRight.value = s.paddingRight;
+
+		widthOfElement.value = s.width;
+		heightOfElement.value = s.height;
+	} else {
+		console.log("Error checkMe(); function ... option != <0;2>");
+	}
 }
 
 $(window).load(function () { 
-		
-
-
 		function ajaxCall() { 
-
-		
 			$.ajax({ url: 'stronaZFormularzem.html',success: function(data) {
 				var page = document.getElementById("toFetchFormFromOtherPage");
 				page.innerHTML = data;
@@ -46,7 +103,7 @@ $(window).load(function () {
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
 				    	if(e[i].children.length == 0) {
-					         e[i].onclick = function () { checkMe(this); };
+					         e[i].onclick = function () { checkMe(this,0); };
 					         //e[i].setAttribute("onclick","checkMe(this);");
 							 //console.log(e[i]);
 						} else {

@@ -12,28 +12,27 @@
 		<input type="text" id="textOfElement" placeholder="Tekst elementu"><br />
 		Kolor elementu:
 		<input type="text" id="colorOfElement" placeholder="Kolor elementu"><br />
-		Margines od góry:
-		<input type="text" id="marginUp" placeholder="Margines od góry"><br />
-		Margines od dołu:
-		<input type="text" id="marginDown" placeholder="Margines od dołu"><br />
-		Margines od lewej:
-		<input type="text" id="marginLeft" placeholder="Margines od lewej"><br />
-		Margines od prawej:
-		<input type="text" id="marginRight" placeholder="Margines od prawej"><br />
-		Padding:
-		<input type="text" id="padding" placeholder="Jaki padding"><br />
-		Szerokość:
-		<input type="text" id="widthOfElement" placeholder="Szerokość"><br />
-		Wysokość:
-		<input type="text" id="heightOfElement" placeholder="Jaka wysokosc?"><br />
+		<h2>Marginesy:</h2>
+		górny <input type="text" id="marginTop" placeholder="Margines od góry"> 
+		dolny <input type="text" id="marginBottom" placeholder="Margines od dołu"> 
+		lewy <input type="text" id="marginLeft" placeholder="Margines od lewej"> 
+		prawy <input type="text" id="marginRight" placeholder="Margines od prawej"><br />
+		<h2>Padding:</h2>
+		górny <input type="text" id="paddingTop" placeholder="Padding od góry"> 
+		dolny <input type="text" id="paddingBottom" placeholder="Padding od dołu"> 
+		lewy <input type="text" id="paddingLeft" placeholder="Padding od lewej"> 
+		prawy<input type="text" id="paddingRight" placeholder="Padding od prawej"><br />
+		<h2>Wymiary:</h2>
+		szerokość <input type="text" id="widthOfElement" placeholder="Szerokość"><br />
+		wysokość <input type="text" id="heightOfElement" placeholder="Jaka wysokosc?"><br /><br />
 		<input type="submit" onclick="addToGenerator(1);" value="Dodaj przycisk">
 		<input type="submit" onclick="addToGenerator(2);" value="Dodaj pole">
 		<input type="submit" onclick="addToGenerator(3);" value="Nowa linia"><br />
 		<hr />
-		<input type="submit" onclick="applyChanges();" value="Zatwierdź zmiany">
-		<input type="submit" onclick="resetChanges();" value="Resetuj">
+		<input type="submit" onclick="checkMe(this,1);" value="Zatwierdź zmiany">
+		<input type="submit" onclick="checkMe(this,2);" value="Resetuj">
 	</div>
-	<h1> Podglad: </h1>
+	<h1>Podglad: </h1>
 	<div style="background-color:antiquewhite; padding:100px;" id="formGenerator"></div>
 	<div style="display:none;" id="toFetchFormFromOtherPage"></div>
 </body>
