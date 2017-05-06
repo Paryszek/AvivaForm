@@ -8,9 +8,28 @@
 		e.textContent = zmiana;
 	}
 }*/
+class element {
+	constructor (t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h) {
+		this.text = t;
+		this.name = n;
+		this.color = c;
+		this.placeHolder = p;
+		this.marginTop = mT;
+		this.marginLeft = mL;
+		this.marginRight = mR;
+		this.marginBottom = mB;
+		this.paddingTop = pT;
+		this.paddingRight = pR;
+		this.paddingBottom = pB;
+		this.paddingLeft = pL;
+		this.width = w;
+		this.height = h;
+	}
+}
 
-
+var Elements = [];
 var TARGETED_ELEMENT;
+
 function checkMe (e,option) {
 
 	var textOfElement = document.getElementById("textOfElement");
@@ -29,6 +48,7 @@ function checkMe (e,option) {
 
 	var widthOfElement = document.getElementById("widthOfElement");
 	var heightOfElement = document.getElementById("heightOfElement");
+
 
 
 	if(option == 0) {
@@ -56,6 +76,8 @@ function checkMe (e,option) {
 
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
+
+
 	} else if(option == 1) {
 		e = TARGETED_ELEMENT;
 
@@ -79,6 +101,9 @@ function checkMe (e,option) {
 
 		e.style.width = widthOfElement.value;
 		e.style.height = heightOfElement.value;
+
+		var el = new element (textOfElement.value, nameOfElement.value, colorOfElement.value, placeHolder.value, marginTop.value, marginBottom.value, marginLeft.value, marginRight.value, paddingTop.value, paddingBottom.value, paddingLeft.value, paddingRight.value, widthOfElement.value, heightOfElement.value);
+		Elements.push(el);
 	} else if(option == 2) {
 		e = TARGETED_ELEMENT;
 		var s = window.getComputedStyle(e);
@@ -103,10 +128,21 @@ function checkMe (e,option) {
 
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
-	} else {
+	} else if(option == 3) {
+	/*	if(e.innerHTML != textOfElement.value || e.value != nameOfElement.value || e.style.color != colorOfElement.value || e.placeHolder != placeHolder.value ||
+			 e.style.marginTop != marginTop.value || e.style.marginBottom != marginBottom.value || e.style.marginLeft != marginLeft.value || e.style.marginRight != marginRight.value ||
+			 e.style.paddingLeft != paddingLeft.value || e.style.paddingRight != paddingRight.value || e.style.paddingTop != paddingTop.value || e.style.paddingBottom != paddingBottom.value ||
+			 e.style.width != widthOfElement.value || e.style.height != heightOfElement.value) {
+
+			 }*/
+		temp = Elements.pop();
+
+	}	else {
 		console.log("Error in checkMe(); function ... arg != <0;2>");
 	}
 }
+
+
 
 $(window).load(function () {
 		function ajaxCall(adress) {
