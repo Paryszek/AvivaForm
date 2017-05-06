@@ -9,7 +9,8 @@
 	}
 }*/
 class element {
-	constructor (t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h) {
+	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h) {
+		this.el = e;
 		this.text = t;
 		this.name = n;
 		this.color = c;
@@ -80,7 +81,8 @@ function checkMe (e,option) {
 
 	} else if(option == 1) {
 		e = TARGETED_ELEMENT;
-
+		var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
+		Elements.push(el);
 		e.innerHTML = textOfElement.value;
 
 		e.value = nameOfElement.value;
@@ -102,8 +104,6 @@ function checkMe (e,option) {
 		e.style.width = widthOfElement.value;
 		e.style.height = heightOfElement.value;
 
-		var el = new element (textOfElement.value, nameOfElement.value, colorOfElement.value, placeHolder.value, marginTop.value, marginBottom.value, marginLeft.value, marginRight.value, paddingTop.value, paddingBottom.value, paddingLeft.value, paddingRight.value, widthOfElement.value, heightOfElement.value);
-		Elements.push(el);
 	} else if(option == 2) {
 		e = TARGETED_ELEMENT;
 		var s = window.getComputedStyle(e);
@@ -129,14 +129,8 @@ function checkMe (e,option) {
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
 	} else if(option == 3) {
-	/*	if(e.innerHTML != textOfElement.value || e.value != nameOfElement.value || e.style.color != colorOfElement.value || e.placeHolder != placeHolder.value ||
-			 e.style.marginTop != marginTop.value || e.style.marginBottom != marginBottom.value || e.style.marginLeft != marginLeft.value || e.style.marginRight != marginRight.value ||
-			 e.style.paddingLeft != paddingLeft.value || e.style.paddingRight != paddingRight.value || e.style.paddingTop != paddingTop.value || e.style.paddingBottom != paddingBottom.value ||
-			 e.style.width != widthOfElement.value || e.style.height != heightOfElement.value) {
-
-			 }*/
-		temp = Elements.pop();
-
+	  tmp = Elements.pop();
+		tmp.el.textContent = tmp.text;
 	}	else {
 		console.log("Error in checkMe(); function ... arg != <0;2>");
 	}
