@@ -29,10 +29,11 @@ class element {
 }
 
 var Elements = [];
+var undoCounter = 0;
 var TARGETED_ELEMENT;
 
 function checkMe (e,option) {
-
+	
 	var textOfElement = document.getElementById("textOfElement");
 	var colorOfElement = document.getElementById("colorOfElement");
 	var placeHolder = document.getElementById("placeHolder");
@@ -81,8 +82,8 @@ function checkMe (e,option) {
 
 	} else if(option == 1) {
 		e = TARGETED_ELEMENT;
-		var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
-		Elements.push(el);
+	
+		
 		e.innerHTML = textOfElement.value;
 
 		e.value = nameOfElement.value;
@@ -103,6 +104,10 @@ function checkMe (e,option) {
 
 		e.style.width = widthOfElement.value;
 		e.style.height = heightOfElement.value;
+		
+		var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
+		Elements.push(el);
+		undoCounter = undoCounter + 1;
 
 	} else if(option == 2) {
 		e = TARGETED_ELEMENT;
@@ -129,7 +134,9 @@ function checkMe (e,option) {
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
 	} else if(option == 3) {
-	  tmp = Elements.pop();
+		if(undoCounter > 0)
+			undoCounter = undoCounter - 1;
+	  	tmp = Elements[undoCounter - 1];
 		tmp.el.innerHTML = tmp.text;
 
 		tmp.el.value = tmp.name;
@@ -150,7 +157,33 @@ function checkMe (e,option) {
 
 		tmp.el.style.width = tmp.widthOfElement;
 		tmp.el.style.height = tmp.heightOfElement;
-	}	else {
+	}	
+		else if(option == 4){
+			if(Elements.length > undoCounter)
+				undoCounter = undoCounter + 1;
+		tmp = Elements[undoCounter - 1];
+		tmp.el.innerHTML = tmp.text;
+
+		tmp.el.value = tmp.name;
+
+		tmp.el.style.color = tmp.color;
+
+		tmp.el.placeholder = tmp.placeHolder;
+
+		tmp.el.style.marginTop = tmp.marginTop;
+	  tmp.el.style.marginBottom = tmp.marginBottom;
+		tmp.el.style.marginLeft = tmp.marginLeft;
+		tmp.el.style.marginRight = tmp.marginRight;
+
+		tmp.el.style.paddingTop = tmp.paddingTop;
+		tmp.el.style.paddingBottom = tmp.paddingBottom;
+		tmp.el.style.paddingLeft = tmp.paddingLeft;
+		tmp.el.style.paddingRight = tmp.paddingRight;
+
+		tmp.el.style.width = tmp.widthOfElement;
+		tmp.el.style.height = tmp.heightOfElement;	
+	}
+	else {
 		console.log("Error in checkMe(); function ... arg != <0;2>");
 	}
 }
