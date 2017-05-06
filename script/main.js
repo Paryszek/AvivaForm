@@ -130,7 +130,26 @@ function checkMe (e,option) {
 		heightOfElement.value = s.height;
 	} else if(option == 3) {
 	  tmp = Elements.pop();
-		tmp.el.textContent = tmp.text;
+		tmp.el.innerHTML = tmp.text;
+
+		tmp.el.value = tmp.name;
+
+		tmp.el.style.color = tmp.color;
+
+		tmp.el.placeholder = tmp.placeHolder;
+
+		tmp.el.style.marginTop = tmp.marginTop;
+	  tmp.el.style.marginBottom = tmp.marginBottom;
+		tmp.el.style.marginLeft = tmp.marginLeft;
+		tmp.el.style.marginRight = tmp.marginRight;
+
+		tmp.el.style.paddingTop = tmp.paddingTop;
+		tmp.el.style.paddingBottom = tmp.paddingBottom;
+		tmp.el.style.paddingLeft = tmp.paddingLeft;
+		tmp.el.style.paddingRight = tmp.paddingRight;
+
+		tmp.el.style.width = tmp.widthOfElement;
+		tmp.el.style.height = tmp.heightOfElement;
 	}	else {
 		console.log("Error in checkMe(); function ... arg != <0;2>");
 	}
