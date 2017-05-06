@@ -8,6 +8,8 @@
 		e.textContent = zmiana;
 	}
 }*/
+
+
 var TARGETED_ELEMENT;
 function checkMe (e,option) {
 
@@ -56,8 +58,8 @@ function checkMe (e,option) {
 		heightOfElement.value = s.height;
 	} else if(option == 1) {
 		e = TARGETED_ELEMENT;
-	
-		e.innerHTML = textOfElement.value; 
+
+		e.innerHTML = textOfElement.value;
 
 		e.value = nameOfElement.value;
 
@@ -106,9 +108,9 @@ function checkMe (e,option) {
 	}
 }
 
-$(window).load(function () { 
-		function ajaxCall() { 
-			$.ajax({ url: 'stronaZFormularzem.html',success: function(data) {
+$(window).load(function () {
+		function ajaxCall(adress) {
+			$.ajax({ url: adress,success: function(data) {
 				var page = document.getElementById("toFetchFormFromOtherPage");
 				page.innerHTML = data;
 				var formGenerator = document.getElementById('formGenerator');
@@ -122,7 +124,7 @@ $(window).load(function () {
 							 //console.log(e[i]);
 						} else {
 							attachFunctionToChildrens(e[i].children);
-						}				    	 
+						}
 					}
 				}
 				var nodes = formGenerator.childNodes;
@@ -151,13 +153,15 @@ $(window).load(function () {
 						}
 					}
 				}*/
-				
+
 				}
-				
+
 			});
 		}
-		
-		ajaxCall();
+		$("#goToURL").click(function(){
+			adress = $("#pageToModify").val();
+			ajaxCall(adress);
+		});
 });
 var addToGenerator = function(e) {
 	var generator = document.getElementById("formGenerator");
@@ -181,4 +185,3 @@ var addToGenerator = function(e) {
 	}
 
 }
-
