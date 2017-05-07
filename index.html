@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8" >
 <script type="text/javascript" src="script/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="script/jscolor.min.js"></script>
 <script type="text/javascript" src="script/main.js"></script>
 </head>
 <body>
@@ -16,7 +17,11 @@
 		Nazwa elementu (dla przycisków)
 		<input type="text" id="nameOfElement" placeholder="Nazwa elementu"><br />
 		Kolor tekstu elementu:
-		<input type="text" id="colorOfElement" placeholder="Kolor elementu"><br />
+		<button class="jscolor {valueElement:'colorOfElement', onFineChange:'setTextColor(this)'}">
+		Pick text color
+		</button><br />
+		<p style="display:none" id="colorOfElement"> </p>
+		<!--< type="text" id="colorOfElement" placeholder="Kolor elementu"><br />-->
 		Placeholder (Wiadomość zachęcająca elementu):
 		<input type="text" id="placeHolder" placeholder="Wiadomość zachęcająca elementu"><br />
 		<h2>Marginesy (odstęp od innych elementów):</h2>

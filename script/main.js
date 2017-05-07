@@ -8,6 +8,7 @@
 		e.textContent = zmiana;
 	}
 }*/
+
 class element {
 	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h) {
 		this.el = e;
@@ -53,7 +54,7 @@ function checkMe (e,option) {
 
 
 
-	if(option == 0) {
+	if(option == 0) { 	//odczyt
 		TARGETED_ELEMENT = e;
 		console.log(e.style);
 		var s = window.getComputedStyle(e);
@@ -62,7 +63,7 @@ function checkMe (e,option) {
 
 		nameOfElement.value = e.value;
 
-		colorOfElement.value = s.color;
+		colorOfElement.innerHTML = s.color;
 
 		placeHolder.value = e.placeholder;
 
@@ -85,15 +86,14 @@ function checkMe (e,option) {
 			undoCounter = undoCounter + 1;
 		}
 
-	} else if(option == 1) {
+	} else if(option == 1) {	//zapis
 		e = TARGETED_ELEMENT;
-	
+		j = document.getElementById("colorOfElement");
 		
 		e.innerHTML = textOfElement.value;
 
 		e.value = nameOfElement.value;
-
-		e.style.color = colorOfElement.value;
+		e.style.color = "#" + j.innerHTML;
 
 		e.placeholder = placeHolder.value;
 
@@ -114,7 +114,7 @@ function checkMe (e,option) {
 		Elements.push(el);
 		undoCounter = undoCounter + 1;
 
-	} else if(option == 2) {
+	} else if(option == 2) {	//reset?
 		e = TARGETED_ELEMENT;
 		var s = window.getComputedStyle(e);
 
@@ -138,7 +138,7 @@ function checkMe (e,option) {
 
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
-	} else if(option == 3) {
+	} else if(option == 3) {	//cofnij
 		if(undoCounter > 1)
 			undoCounter = undoCounter - 1;
 	  	tmp = Elements[undoCounter - 1];
@@ -163,7 +163,7 @@ function checkMe (e,option) {
 		tmp.el.style.width = tmp.widthOfElement;
 		tmp.el.style.height = tmp.heightOfElement;
 	}	
-		else if(option == 4){
+		else if(option == 4){	// cofnij cofniecie
 			if(Elements.length > undoCounter)
 				undoCounter = undoCounter + 1;
 		tmp = Elements[undoCounter - 1];
@@ -176,7 +176,7 @@ function checkMe (e,option) {
 		tmp.el.placeholder = tmp.placeHolder;
 
 		tmp.el.style.marginTop = tmp.marginTop;
-	  tmp.el.style.marginBottom = tmp.marginBottom;
+	  	tmp.el.style.marginBottom = tmp.marginBottom;
 		tmp.el.style.marginLeft = tmp.marginLeft;
 		tmp.el.style.marginRight = tmp.marginRight;
 
