@@ -78,7 +78,12 @@ function checkMe (e,option) {
 
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
-
+		
+		if(e !== Elements[undoCounter - 1]){
+			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
+			Elements.push(el);
+			undoCounter = undoCounter + 1;
+		}
 
 	} else if(option == 1) {
 		e = TARGETED_ELEMENT;
@@ -134,7 +139,7 @@ function checkMe (e,option) {
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
 	} else if(option == 3) {
-		if(undoCounter > 0)
+		if(undoCounter > 1)
 			undoCounter = undoCounter - 1;
 	  	tmp = Elements[undoCounter - 1];
 		tmp.el.innerHTML = tmp.text;
