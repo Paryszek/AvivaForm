@@ -32,9 +32,10 @@ class element {
 var Elements = [];
 var undoCounter = 0;
 var TARGETED_ELEMENT;
+var Clicked = null;
 
 function checkMe (e,option) {
-	
+
 	var textOfElement = document.getElementById("textOfElement");
 	var colorOfElement = document.getElementById("colorOfElement");
 	var placeHolder = document.getElementById("placeHolder");
@@ -52,7 +53,10 @@ function checkMe (e,option) {
 	var widthOfElement = document.getElementById("widthOfElement");
 	var heightOfElement = document.getElementById("heightOfElement");
 
-
+	console.log(e);
+	$(Clicked).removeClass("active");
+	Clicked = e;
+	$(e).addClass("active");
 
 	if(option == 0) { 	//odczyt
 		TARGETED_ELEMENT = e;
@@ -79,7 +83,7 @@ function checkMe (e,option) {
 
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
-		
+
 		if(e !== Elements[undoCounter - 1]){
 			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
 			Elements.push(el);
@@ -89,7 +93,7 @@ function checkMe (e,option) {
 	} else if(option == 1) {	//zapis
 		e = TARGETED_ELEMENT;
 		j = document.getElementById("colorOfElement");
-		
+
 		e.innerHTML = textOfElement.value;
 
 		e.value = nameOfElement.value;
@@ -109,7 +113,7 @@ function checkMe (e,option) {
 
 		e.style.width = widthOfElement.value;
 		e.style.height = heightOfElement.value;
-		
+
 		var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
 		Elements.push(el);
 		undoCounter = undoCounter + 1;
@@ -162,7 +166,7 @@ function checkMe (e,option) {
 
 		tmp.el.style.width = tmp.widthOfElement;
 		tmp.el.style.height = tmp.heightOfElement;
-	}	
+	}
 		else if(option == 4){	// cofnij cofniecie
 			if(Elements.length > undoCounter)
 				undoCounter = undoCounter + 1;
@@ -186,7 +190,7 @@ function checkMe (e,option) {
 		tmp.el.style.paddingRight = tmp.paddingRight;
 
 		tmp.el.style.width = tmp.widthOfElement;
-		tmp.el.style.height = tmp.heightOfElement;	
+		tmp.el.style.height = tmp.heightOfElement;
 	}
 	else {
 		console.log("Error in checkMe(); function ... arg != <0;2>");
