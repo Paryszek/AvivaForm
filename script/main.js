@@ -1,14 +1,4 @@
 
-
-/*function zmiana (e) {
-	var zmiana = prompt("Wprowadz tekst, ktory chcesz tu wstawic", e.textContent);
-	if(zmiana == null || zmiana == "") {
-		return
-	} else {
-		e.textContent = zmiana;
-	}
-}*/
-
 class element {
 	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h) {
 		this.el = e;
@@ -218,33 +208,8 @@ $(window).load(function () {
 						}
 					}
 				}
-				var nodes = formGenerator.childNodes;
-				attachFunctionToChildrens(nodes);
-				//formGenerator.innerHTML  = document.getElementsByClassName("whole-page")[0].innerHTML; //drobna zmiana pozwalajaca na załaczenie calej strony zamiast jej elemntow do podgladu
-				/*var x = document.getElementsByClassName("no-margin-no-padding");
-				for (i=0; i < x.length; i++) {
-					x[i].onclick = function () {
-						checkMe(this);
-						zmiana(this);
-					}
-				}
-				var b = document.getElementsByTagName("button");
-				for(i=0; i < b.length; i++) {
-					b[i].onclick = function () {
-						checkMe(this);
-						zmiana(this);
-					}
-				}
-					//dodana obsluga elementow ng-binding
-					var c = document.getElementsByClassName("ng-binding");
-				for(i=0; i < c.length; i++) {
-					c[i].onclick = function () {
-						checkMe(this);
-						zmiana(this);
-						}
-					}
-				}*/
-
+					var nodes = formGenerator.childNodes;
+					attachFunctionToChildrens(nodes);
 				}
 
 			});

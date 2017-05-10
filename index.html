@@ -8,7 +8,10 @@
 <script type="text/javascript" src="script/main.js"></script>
 <style>
 .active {
-    border:inset medium #52B9A2;
+    /*border:inset medium #52B9A2;*/
+    transition: all 1s;
+    transform: scale(1.05,1.05);
+    box-shadow:0px 0px 5px 5px rgba(0,0,0,0.75);
 }
 </style>
 </head>
@@ -16,7 +19,7 @@
 	<h1> Menu: </h1>
 	<div id="generatorMenu">
 		Url formularza do modyfikacji:
-		<input type="url" id="pageToModify" value="http://localhost/avivaForm/stronaZFormularzem.html">
+		<input type="url" id="pageToModify" value="./stronaZFormularzem.html">
 		<button id="goToURL">Przejdź do wskazanego URL</button><br /><br />
 		Tekst elementu:
 		<input type="text" id="textOfElement" placeholder="Tekst elementu"><br />
