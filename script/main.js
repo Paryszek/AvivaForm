@@ -44,11 +44,13 @@ function checkMe (e,option) {
 	var heightOfElement = document.getElementById("heightOfElement");
 
 	console.log(e);
-	$(Clicked).removeClass("active");
-	Clicked = e;
-	$(e).addClass("active");
+	
 
 	if(option == 0) { 	//odczyt
+		$(Clicked).removeClass("active");
+		Clicked = e;
+		$(e).addClass("active");
+		
 		TARGETED_ELEMENT = e;
 		console.log(e.style);
 		var s = window.getComputedStyle(e);
