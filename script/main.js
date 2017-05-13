@@ -1,4 +1,3 @@
-
 class element {
 	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h) {
 		this.el = e;
@@ -110,7 +109,7 @@ function checkMe (e,option) {
 		Elements.push(el);
 		undoCounter = undoCounter + 1;
 
-	} else if(option == 2) {	//reset?
+	} else if(option == 2) {	//reset
 		e = TARGETED_ELEMENT;
 		var s = window.getComputedStyle(e);
 
@@ -159,7 +158,7 @@ function checkMe (e,option) {
 		tmp.el.style.width = tmp.widthOfElement;
 		tmp.el.style.height = tmp.heightOfElement;
 	}
-		else if(option == 4){	// cofnij cofniecie
+		else if(option == 4){	// ponów
 			if(Elements.length > undoCounter)
 				undoCounter = undoCounter + 1;
 		tmp = Elements[undoCounter - 1];
@@ -185,7 +184,7 @@ function checkMe (e,option) {
 		tmp.el.style.height = tmp.heightOfElement;
 	}
 	else {
-		console.log("Error in checkMe(); function ... arg != <0;2>");
+		console.log("Error in checkMe(); function ... arg != <0;4>");
 	}
 }
 
@@ -217,11 +216,12 @@ $(window).load(function () {
 			});
 		}
 		$("#goToURL").click(function(){
+			$('#loadPageFromURLScreen').addClass('hideSection');
 			adress = $("#pageToModify").val();
 			ajaxCall(adress);
 		});
 });
-var addToGenerator = function(e) {
+/*var addToGenerator = function(e) {
 	var generator = document.getElementById("formGenerator");
 	if(e == 1) {
 		var formElement = document.createElement("input");
@@ -242,4 +242,4 @@ var addToGenerator = function(e) {
 		console.log("Error in addToGenerator(); function ... arg != <1;3>");
 	}
 
-}
+}*/
