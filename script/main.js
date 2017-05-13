@@ -193,6 +193,7 @@ function checkMe (e,option) {
 $(window).load(function () {
 		function ajaxCall(adress) {
 			$.ajax({ url: adress,success: function(data) {
+				$('#loadPageFromURLScreen').addClass('hideSection');
 				var page = document.getElementById("toFetchFormFromOtherPage");
 				page.innerHTML = data;
 				var formGenerator = document.getElementById('formGenerator');
@@ -216,7 +217,6 @@ $(window).load(function () {
 			});
 		}
 		$("#goToURL").click(function(){
-			$('#loadPageFromURLScreen').addClass('hideSection');
 			adress = $("#pageToModify").val();
 			ajaxCall(adress);
 		});
