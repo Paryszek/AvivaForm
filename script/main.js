@@ -43,13 +43,13 @@ function checkMe (e,option) {
 	var heightOfElement = document.getElementById("heightOfElement");
 
 	console.log(e);
-	
+
 
 	if(option == 0) { 	//odczyt
 		$(Clicked).removeClass("active");
 		Clicked = e;
 		$(e).addClass("active");
-		
+
 		TARGETED_ELEMENT = e;
 		console.log(e.style);
 		var s = window.getComputedStyle(e);
@@ -183,7 +183,12 @@ function checkMe (e,option) {
 		tmp.el.style.width = tmp.widthOfElement;
 		tmp.el.style.height = tmp.heightOfElement;
 	}
-	else {
+	else if (option == 5) {
+	//	$("#generatorMenu").addClass("hideSection");
+		$("#loadPageFromURLScreen").removeClass("hideSection");
+		adress = $("#pageToModify").val();
+		ajaxCall(adress);
+  } else {
 		console.log("Error in checkMe(); function ... arg != <0;4>");
 	}
 }
