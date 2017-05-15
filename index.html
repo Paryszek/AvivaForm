@@ -5,71 +5,8 @@
 <meta http-equiv="Cache-control" content="no-cache">
 <script type="text/javascript" src="script/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="script/jscolor.min.js"></script>
-<script type="text/javascript" src="script/main.js"></script>
-<style>
-html {
-	color:#2b2b2b;
-}
-body{
-    margin:0;
-    padding:0;
-    font-family: 'Lato', sans-serif;
-    -webkit-text-size-adjust:none;
-    -ms-text-size-adjust:none;
-    -moz-text-size-adjust:none;
-    text-size-adjust:none;
-}
-.active {
-    transition: all 1s;
-    transform: scale(0.90,0.90);
-    box-shadow:0px 0px 5px 5px rgba(0,0,0,0.75);
-}
-#loadPageFromURLScreen {
-    position:fixed;
-    background-color:#ecebeb;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    z-index:1000;
-    opacity:1;
-}
-#pageToModify {
-	width:100%;
-	padding-top:5px;
-	padding-bottom:5px;
-	font-size:20px;
-
-}
-#goToURL {
-	width:100%;
-	padding:10px;
-	margin-left:3px;
-	font-size:20px;
-}
-	#goToURL:hover {
-		transition: all 1s;
-    	transform: scale(0.98,0.98);
-    	cursor: pointer;
-	}
-#section {
-	position:absolute;
-    left: 50%;
-    top: 50%;
-    width:710px;
-    height:200px;
-    margin-top: -100px;
-    margin-left: -355px;
-}
-#section h2 {
-	font-size:150%;
-}
-	.hideSection {
-	    opacity:0;
-	    display:none;
-	    z-index:-1000;
-	}
-</style>
+<script type="text/javascript" src="script/main.js?5"></script>
+<link rel="stylesheet" href="./css/main.css" />
 </head>
 <body>
 	<div id="loadPageFromURLScreen">
@@ -79,41 +16,42 @@ body{
 			<button id="goToURL">Potwierdź</button>
 		</div>
 	</div>
-	<h1 style=""> Menu: </h1>
-	<div style="" id="generatorMenu">
-		<br /><br />
-		Tekst elementu:
-		<input type="text" id="textOfElement" placeholder="Tekst elementu"><br />
-		Nazwa elementu (dla przycisków)
-		<input type="text" id="nameOfElement" placeholder="Nazwa elementu"><br />
-		Kolor tekstu elementu:
-		<button class="jscolor {valueElement:'colorOfElement', onFineChange:'setTextColor(this)'}">
-		Pick text color
-		</button><br />
-		<p style="display:none" id="colorOfElement"> </p>
-		Placeholder (Wiadomość zachęcająca elementu):
-		<input type="text" id="placeHolder" placeholder="Wiadomość zachęcająca elementu"><br />
-		<h2>Marginesy (odstęp od innych elementów):</h2>
-		górny <input type="text" id="marginTop" placeholder="Margines od góry">
-		dolny <input type="text" id="marginBottom" placeholder="Margines od dołu">
-		lewy <input type="text" id="marginLeft" placeholder="Margines od lewej">
-		prawy <input type="text" id="marginRight" placeholder="Margines od prawej"><br />
-		<h2>Padding (odstęp wypełniający element):</h2>
-		górny <input type="text" id="paddingTop" placeholder="Padding od góry">
-		dolny <input type="text" id="paddingBottom" placeholder="Padding od dołu">
-		lewy <input type="text" id="paddingLeft" placeholder="Padding od lewej">
-		prawy<input type="text" id="paddingRight" placeholder="Padding od prawej"><br />
-		<h2>Wymiary:</h2>
-		szerokość <input type="text" id="widthOfElement" placeholder="Szerokość"><br />
-		wysokość <input type="text" id="heightOfElement" placeholder="Jaka wysokosc?"><br /><br />
-		<!--<input type="submit" onclick="addToGenerator(1);" value="Dodaj przycisk">
-		<input type="submit" onclick="addToGenerator(2);" value="Dodaj pole">
-		<input type="submit" onclick="addToGenerator(3);" value="Nowa linia"><br />-->
-		<hr />
-		<input type="submit" onclick="checkMe(this,1);" value="Zatwierdź zmiany">
-		<input type="submit" onclick="checkMe(this,2);" value="Resetuj">
-		<input type="submit" onclick="checkMe(this,3);" value="Cofnij">
-		<input type="submit" onclick="checkMe(this,4);" value="Ponów">
+	<div class="generatorMenu">
+		<!--<div id="generatorSection">-->
+			<div id="leaveEditMode">x</div>
+			Tekst elementu:
+			<input type="text" id="textOfElement" placeholder="Tekst elementu"><br />
+			Nazwa elementu (dla przycisków)
+			<input type="text" id="nameOfElement" placeholder="Nazwa elementu"><br />
+			Kolor tekstu elementu:
+			<button class="jscolor {valueElement:'colorOfElement', onFineChange:'setTextColor(this)'}">
+			Pick text color
+			</button><br />
+			<p style="display:none" id="colorOfElement"> </p>
+			Placeholder (Wiadomość zachęcająca elementu):
+			<input type="text" id="placeHolder" placeholder="Wiadomość zachęcająca elementu"><br />
+			<h2>Marginesy (odstęp od innych elementów):</h2>
+			górny <input type="text" id="marginTop" placeholder="Margines od góry">
+			dolny <input type="text" id="marginBottom" placeholder="Margines od dołu">
+			lewy <input type="text" id="marginLeft" placeholder="Margines od lewej">
+			prawy <input type="text" id="marginRight" placeholder="Margines od prawej"><br />
+			<h2>Padding (odstęp wypełniający element):</h2>
+			górny <input type="text" id="paddingTop" placeholder="Padding od góry">
+			dolny <input type="text" id="paddingBottom" placeholder="Padding od dołu">
+			lewy <input type="text" id="paddingLeft" placeholder="Padding od lewej">
+			prawy<input type="text" id="paddingRight" placeholder="Padding od prawej"><br />
+			<h2>Wymiary:</h2>
+			szerokość <input type="text" id="widthOfElement" placeholder="Szerokość"><br />
+			wysokość <input type="text" id="heightOfElement" placeholder="Jaka wysokosc?"><br /><br />
+			<!--<input type="submit" onclick="addToGenerator(1);" value="Dodaj przycisk">
+			<input type="submit" onclick="addToGenerator(2);" value="Dodaj pole">
+			<input type="submit" onclick="addToGenerator(3);" value="Nowa linia"><br />-->
+			<hr />
+			<input type="submit" onclick="checkMe(this,1);" value="Zatwierdź zmiany">
+			<input type="submit" onclick="checkMe(this,2);" value="Resetuj">
+			<input type="submit" onclick="checkMe(this,3);" value="Cofnij">
+			<input type="submit" onclick="checkMe(this,4);" value="Ponów">
+		<!--</div>-->
 	</div>
 	<h1>Podglad: </h1>
 	<div style="background-color:antiquewhite; padding:100px;" id="formGenerator"></div>

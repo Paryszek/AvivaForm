@@ -42,10 +42,11 @@ function checkMe (e,option) {
 	var widthOfElement = document.getElementById("widthOfElement");
 	var heightOfElement = document.getElementById("heightOfElement");
 
-	console.log(e);
-
+	$(".generatorMenu").removeClass("hideSection");
+	$(".generatorMenu").addClass("showSection");
 
 	if(option == 0) { 	//odczyt
+	
 		$(Clicked).removeClass("active");
 		Clicked = e;
 		$(e).addClass("active");
@@ -184,12 +185,11 @@ function checkMe (e,option) {
 		tmp.el.style.height = tmp.heightOfElement;
 	}
 	else if (option == 5) {
-	//	$("#generatorMenu").addClass("hideSection");
 		$("#loadPageFromURLScreen").removeClass("hideSection");
 		adress = $("#pageToModify").val();
 		ajaxCall(adress);
   } else {
-		console.log("Error in checkMe(); function ... arg != <0;4>");
+		console.log("Error in checkMe(); function ... arg != <0;5>");
 	}
 }
 
@@ -198,6 +198,7 @@ function checkMe (e,option) {
 $(window).load(function () {
 		function ajaxCall(adress) {
 			$.ajax({ url: adress,success: function(data) {
+				$(".generatorMenu").addClass("hideSection");
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				var page = document.getElementById("toFetchFormFromOtherPage");
 				page.innerHTML = data;
@@ -225,6 +226,11 @@ $(window).load(function () {
 			adress = $("#pageToModify").val();
 			ajaxCall(adress);
 		});
+		$("#leaveEditMode").click(function(){
+			$(".generatorMenu").removeClass("showSection");
+			$(".generatorMenu").addClass("hideSection");
+		});
+
 });
 /*var addToGenerator = function(e) {
 	var generator = document.getElementById("formGenerator");
