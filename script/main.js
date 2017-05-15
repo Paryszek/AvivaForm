@@ -54,12 +54,16 @@ function checkMe (e,option) {
 		TARGETED_ELEMENT = e;
 		console.log(e.style);
 		var s = window.getComputedStyle(e);
+		var colorPicker = document.getElementById('colorPickerButton');
+		colorPicker = colorPicker.jscolor;
+		
+
 
 		textOfElement.value = e.innerHTML;
 
 		nameOfElement.value = e.value;
 
-		colorOfElement.innerHTML = s.color;
+		colorPicker.fromString(s.color);
 
 		placeHolder.value = e.placeholder;
 
@@ -76,21 +80,20 @@ function checkMe (e,option) {
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
 
-		if(e !== Elements[undoCounter - 1]){
-			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
-			Elements.push(el);
-			undoCounter = undoCounter + 1;
-		}
+		var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
+		Elements.push(el);
+		undoCounter = undoCounter + 1;
+	
 
 	} else if(option == 1) {	//zapis
 		e = TARGETED_ELEMENT;
-		j = document.getElementById("colorOfElement");
+		var colorPicker = document.getElementById('colorPickerButton');
+		colorPicker = colorPicker.jscolor;
 
 		e.innerHTML = textOfElement.value;
 
 		e.value = nameOfElement.value;
-		e.style.color = "#" + j.innerHTML;
-
+		e.style.color = "#" + colorPicker.toString();
 		e.placeholder = placeHolder.value;
 
 		e.style.marginTop = marginTop.value;
@@ -138,6 +141,11 @@ function checkMe (e,option) {
 		if(undoCounter > 1)
 			undoCounter = undoCounter - 1;
 	  	tmp = Elements[undoCounter - 1];
+
+	  	var colorPicker = document.getElementById('colorPickerButton');
+		colorPicker = colorPicker.jscolor;
+		colorPicker.fromString(tmp.color);
+
 		tmp.el.innerHTML = tmp.text;
 
 		tmp.el.value = tmp.name;
@@ -163,6 +171,11 @@ function checkMe (e,option) {
 			if(Elements.length > undoCounter)
 				undoCounter = undoCounter + 1;
 		tmp = Elements[undoCounter - 1];
+	  	
+	  	var colorPicker = document.getElementById('colorPickerButton');
+		colorPicker = colorPicker.jscolor;
+		colorPicker.fromString(tmp.color);
+
 		tmp.el.innerHTML = tmp.text;
 
 		tmp.el.value = tmp.name;
