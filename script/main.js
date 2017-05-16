@@ -1,5 +1,5 @@
 class element {
-	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h) {
+	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h, s, a) {
 		this.el = e;
 		this.text = t;
 		this.name = n;
@@ -15,6 +15,8 @@ class element {
 		this.paddingLeft = pL;
 		this.width = w;
 		this.height = h;
+		this.src = s;
+		this.alt = a;
 	}
 }
 
@@ -22,6 +24,7 @@ var Elements = [];
 var undoCounter = 0;
 var TARGETED_ELEMENT;
 var Clicked = null;
+
 
 function checkMe (e,option) {
 
@@ -41,87 +44,254 @@ function checkMe (e,option) {
 
 	var widthOfElement = document.getElementById("widthOfElement");
 	var heightOfElement = document.getElementById("heightOfElement");
+	var urlAdress = document.getElementById("urlOfImage");
+	var altOfImage = document.getElementById("altOfImage");
 
 	$(".generatorMenu").removeClass("hideSection");
 	$(".generatorMenu").addClass("showSection");
+	$('cookie-consent').addClass('hideSection');
 
 	if(option == 0) { 	//odczyt
-	
+
 		$(Clicked).removeClass("active");
 		Clicked = e;
 		$(e).addClass("active");
 
 		TARGETED_ELEMENT = e;
-		console.log(e.style);
-		var s = window.getComputedStyle(e);
-		var colorPicker = document.getElementById('colorPickerButton');
-		colorPicker = colorPicker.jscolor;
-		
 
+		if($(e).hasClass("image")) {
+			$("#ButtonsText").addClass("hideSection");
+			$("#Images").removeClass("hideSection");
 
-		textOfElement.value = e.innerHTML;
+			altOfImage.value = e.alt;
+			urlAdress.value = e.src;
 
-		nameOfElement.value = e.value;
+			widthOfElement.value = e.width;
+			heightOfElement.value = e.height;
 
-		colorPicker.fromString(s.color);
+			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, e.width, e.height, e.src, e.alt);
+			Elements.push(el);
+			undoCounter = undoCounter + 1;
 
-		placeHolder.value = e.placeholder;
+		} else {
+			$("#ButtonsText").removeClass("hideSection");
+			$("#Images").addClass("hideSection");
+			var s = window.getComputedStyle(e);
+			var colorPicker = document.getElementById('colorPickerButton');
+			colorPicker = colorPicker.jscolor;
 
-		marginTop.value = s.marginTop;
-		marginBottom.value = s.marginBottom;
-		marginLeft.value = s.marginLeft;
-		marginRight.value = s.marginRight;
+			textOfElement.value = e.innerHTML;
+			nameOfElement.value = e.value;
+			colorPicker.fromString(s.color);
+			placeHolder.value = e.placeholder;
 
-		paddingTop.value = s.paddingTop;
-		paddingBottom.value = s.paddingBottom;
-		paddingLeft.value = s.paddingLeft;
-		paddingRight.value = s.paddingRight;
+			marginTop.value = s.marginTop;
+			marginBottom.value = s.marginBottom;
+			marginLeft.value = s.marginLeft;
+			marginRight.value = s.marginRight;
 
-		widthOfElement.value = s.width;
-		heightOfElement.value = s.height;
+			paddingTop.value = s.paddingTop;
+			paddingBottom.value = s.paddingBottom;
+			paddingLeft.value = s.paddingLeft;
+			paddingRight.value = s.paddingRight;
 
-		var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
-		Elements.push(el);
-		undoCounter = undoCounter + 1;
-	
+			widthOfElement.value = s.width;
+			heightOfElement.value = s.height;
+
+			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null);
+			Elements.push(el);
+			undoCounter = undoCounter + 1;
+		}
 
 	} else if(option == 1) {	//zapis
 		e = TARGETED_ELEMENT;
 		var colorPicker = document.getElementById('colorPickerButton');
 		colorPicker = colorPicker.jscolor;
 
-		e.innerHTML = textOfElement.value;
+		if($(e).hasClass("image")) {
+			e.width = widthOfElement.value;
+			e.height = heightOfElement.value;
+			e.src = urlAdress.value;
+			e.alt = altOfImage.value;
 
-		e.value = nameOfElement.value;
-		e.style.color = "#" + colorPicker.toString();
-		e.placeholder = placeHolder.value;
+			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, e.width, e.height, e.src, e.alt);
+			Elements.push(el);
+			undoCounter = undoCounter + 1;
+		} else {
+			e.innerHTML = textOfElement.value;
 
-		e.style.marginTop = marginTop.value;
-		e.style.marginBottom = marginBottom.value;
-		e.style.marginLeft = marginLeft.value;
-		e.style.marginRight = marginRight.value;
+			e.value = nameOfElement.value;
+			e.style.color = "#" + colorPicker.toString();
 
-		e.style.paddingTop = paddingTop.value
-		e.style.paddingBottom = paddingBottom.value;
-		e.style.paddingLeft = paddingLeft.value;
-		e.style.paddingRight = paddingRight.value;
+			e.placeholder = placeHolder.value;
 
-		e.style.width = widthOfElement.value;
-		e.style.height = heightOfElement.value;
+			e.style.marginTop = marginTop.value;
+			e.style.marginBottom = marginBottom.value;
+			e.style.marginLeft = marginLeft.value;
+			e.style.marginRight = marginRight.value;
 
-		var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height);
-		Elements.push(el);
-		undoCounter = undoCounter + 1;
+			e.style.paddingTop = paddingTop.value
+			e.style.paddingBottom = paddingBottom.value;
+			e.style.paddingLeft = paddingLeft.value;
+			e.style.paddingRight = paddingRight.value;
+
+			e.style.width = widthOfElement.value;
+			e.style.height = heightOfElement.value;
+
+			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null);
+			Elements.push(el);
+			undoCounter = undoCounter + 1;
+		}
 
 	} else if(option == 2) {	//reset
-		e = TARGETED_ELEMENT;
+		reset(e);
+	} else if(option == 3) {	//cofnij
+
+		if(undoCounter > 1)
+			undoCounter = undoCounter - 1;
+	  tmp = Elements[undoCounter - 1];
+		back(tmp);
+
+	} else if(option == 4){	// ponów
+
+		if(Elements.length > undoCounter)
+				undoCounter = undoCounter + 1;
+		tmp = Elements[undoCounter - 1];
+		back(tmp);
+
+	}
+	else if (option == 5) {
+
+		$("#loadPageFromURLScreen").removeClass("hideSection");
+		adress = $("#pageToModify").val();
+		ajaxCall(adress);
+
+  } else {
+		console.log("Error in checkMe(); function ... arg != <0;4>");
+	}
+}
+
+function back (tmp) {
+	if($(tmp.el).hasClass("image")) {
+		tmp.el.src = tmp.src;
+		tmp.el.alt = tmp.alt;
+	} else {
+		var colorPicker = document.getElementById('colorPickerButton');
+		colorPicker = colorPicker.jscolor;
+		colorPicker.fromString(tmp.color);
+
+		tmp.el.innerHTML = tmp.text;
+
+		tmp.el.value = tmp.name;
+
+		tmp.el.style.color = tmp.color;
+
+		tmp.el.placeholder = tmp.placeHolder;
+
+		tmp.el.style.marginTop = tmp.marginTop;
+		tmp.el.style.marginBottom = tmp.marginBottom;
+		tmp.el.style.marginLeft = tmp.marginLeft;
+		tmp.el.style.marginRight = tmp.marginRight;
+
+		tmp.el.style.paddingTop = tmp.paddingTop;
+		tmp.el.style.paddingBottom = tmp.paddingBottom;
+		tmp.el.style.paddingLeft = tmp.paddingLeft;
+		tmp.el.style.paddingRight = tmp.paddingRight;
+
+		tmp.el.style.width = tmp.widthOfElement;
+		tmp.el.style.height = tmp.heightOfElement;
+	}
+	reset(tmp);
+}
+
+$(window).load(function () {
+		function ajaxCall(adress) {
+			$.ajax({ url: adress,success: function(data) {
+				$('#loadPageFromURLScreen').addClass('hideSection');
+				$('.generatorMenu').addClass('hideSection');
+				var page = document.getElementById("toFetchFormFromOtherPage");
+				page.innerHTML = data;
+				var formGenerator = document.getElementById('formGenerator');
+				var outerForm = document.getElementsByTagName("form")[0];
+				formGenerator.innerHTML  = outerForm.innerHTML;
+
+				var c = document.createElement('div');
+				c.innerHTML = "<div id='Moj Div'> </div>";
+				var x = document.createElement('data');
+				x.innerHTML = data;
+				c.appendChild(x);
+				formGenerator.innerHTML = c.innerHTML;
+
+
+				var attachFunctionToChildrens = function(e) {
+					for(var i=0; i<e.length; i++) {
+				    	if(e[i].children.length == 0) {
+									var x = $(e[i]);
+									if($(x).is("img")) {
+										$(x).addClass("image");
+									}
+					         e[i].onclick = function (event) {
+										 event.preventDefault();
+										 checkMe(this,0);
+									 };
+
+						} else {
+							attachFunctionToChildrens(e[i].children);
+						}
+					}
+				}
+					var nodes = formGenerator.childNodes;
+					attachFunctionToChildrens(nodes);
+				}
+			});
+		}
+		$("#goToURL").click(function(){
+			adress = $("#pageToModify").val();
+			ajaxCall(adress);
+		});
+		$("#leaveEditMode").click(function(){
+			$('cookie-consent').removeClass('hideSection');
+			$(".generatorMenu").removeClass("showSection");
+			$(".generatorMenu").addClass("hideSection");
+		});
+});
+
+function reset (e) {
+	var textOfElement = document.getElementById("textOfElement");
+	var colorOfElement = document.getElementById("colorOfElement");
+	var placeHolder = document.getElementById("placeHolder");
+
+	var marginTop = document.getElementById("marginTop");
+	var marginBottom = document.getElementById("marginBottom");
+	var marginLeft = document.getElementById("marginLeft");
+	var marginRight = document.getElementById("marginRight");
+
+	var paddingTop = document.getElementById("paddingTop");
+	var paddingBottom = document.getElementById("paddingBottom");
+	var paddingLeft = document.getElementById("paddingLeft");
+	var paddingRight = document.getElementById("paddingRight");
+
+	var widthOfElement = document.getElementById("widthOfElement");
+	var heightOfElement = document.getElementById("heightOfElement");
+	var urlAdress = document.getElementById("urlOfImage");
+	var altOfImage = document.getElementById("altOfImage");
+	e = TARGETED_ELEMENT;
+
+	if($(e).hasClass("image")) {
+		altOfImage.value = e.alt;
+		urlAdress.value = e.src;
+		widthOfElement.value = e.width;
+		heightOfElement.value = e.height;
+	} else {
 		var s = window.getComputedStyle(e);
+		var colorPicker = document.getElementById('colorPickerButton');
+		colorPicker = colorPicker.jscolor;
 
 		textOfElement.value = e.innerHTML;
 
 		nameOfElement.value = e.value;
 
-		colorOfElement.value = s.color;
+		colorPicker.fromString(s.color);
 
 		placeHolder.value = e.placeholder
 
@@ -137,133 +307,5 @@ function checkMe (e,option) {
 
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
-	} else if(option == 3) {	//cofnij
-		if(undoCounter > 1)
-			undoCounter = undoCounter - 1;
-	  	tmp = Elements[undoCounter - 1];
-
-	  	var colorPicker = document.getElementById('colorPickerButton');
-		colorPicker = colorPicker.jscolor;
-		colorPicker.fromString(tmp.color);
-
-		tmp.el.innerHTML = tmp.text;
-
-		tmp.el.value = tmp.name;
-
-		tmp.el.style.color = tmp.color;
-
-		tmp.el.placeholder = tmp.placeHolder;
-
-		tmp.el.style.marginTop = tmp.marginTop;
-	  tmp.el.style.marginBottom = tmp.marginBottom;
-		tmp.el.style.marginLeft = tmp.marginLeft;
-		tmp.el.style.marginRight = tmp.marginRight;
-
-		tmp.el.style.paddingTop = tmp.paddingTop;
-		tmp.el.style.paddingBottom = tmp.paddingBottom;
-		tmp.el.style.paddingLeft = tmp.paddingLeft;
-		tmp.el.style.paddingRight = tmp.paddingRight;
-
-		tmp.el.style.width = tmp.widthOfElement;
-		tmp.el.style.height = tmp.heightOfElement;
-	}
-		else if(option == 4){	// ponów
-			if(Elements.length > undoCounter)
-				undoCounter = undoCounter + 1;
-		tmp = Elements[undoCounter - 1];
-	  	
-	  	var colorPicker = document.getElementById('colorPickerButton');
-		colorPicker = colorPicker.jscolor;
-		colorPicker.fromString(tmp.color);
-
-		tmp.el.innerHTML = tmp.text;
-
-		tmp.el.value = tmp.name;
-
-		tmp.el.style.color = tmp.color;
-
-		tmp.el.placeholder = tmp.placeHolder;
-
-		tmp.el.style.marginTop = tmp.marginTop;
-	  	tmp.el.style.marginBottom = tmp.marginBottom;
-		tmp.el.style.marginLeft = tmp.marginLeft;
-		tmp.el.style.marginRight = tmp.marginRight;
-
-		tmp.el.style.paddingTop = tmp.paddingTop;
-		tmp.el.style.paddingBottom = tmp.paddingBottom;
-		tmp.el.style.paddingLeft = tmp.paddingLeft;
-		tmp.el.style.paddingRight = tmp.paddingRight;
-
-		tmp.el.style.width = tmp.widthOfElement;
-		tmp.el.style.height = tmp.heightOfElement;
-	}
-	else if (option == 5) {
-		$("#loadPageFromURLScreen").removeClass("hideSection");
-		adress = $("#pageToModify").val();
-		ajaxCall(adress);
-  } else {
-		console.log("Error in checkMe(); function ... arg != <0;5>");
 	}
 }
-
-
-
-$(window).load(function () {
-		function ajaxCall(adress) {
-			$.ajax({ url: adress,success: function(data) {
-				$(".generatorMenu").addClass("hideSection");
-				$('#loadPageFromURLScreen').addClass('hideSection');
-				var page = document.getElementById("toFetchFormFromOtherPage");
-				page.innerHTML = data;
-				var formGenerator = document.getElementById('formGenerator');
-				var outerForm = document.getElementsByTagName("form")[0];
-				formGenerator.innerHTML  = outerForm.innerHTML;
-				var attachFunctionToChildrens = function(e) {
-					for(var i=0; i<e.length; i++) {
-				    	if(e[i].children.length == 0) {
-					         e[i].onclick = function () { checkMe(this,0); };
-					         //e[i].setAttribute("onclick","checkMe(this);");
-							 //console.log(e[i]);
-						} else {
-							attachFunctionToChildrens(e[i].children);
-						}
-					}
-				}
-					var nodes = formGenerator.childNodes;
-					attachFunctionToChildrens(nodes);
-				}
-
-			});
-		}
-		$("#goToURL").click(function(){
-			adress = $("#pageToModify").val();
-			ajaxCall(adress);
-		});
-		$("#leaveEditMode").click(function(){
-			$(".generatorMenu").removeClass("showSection");
-			$(".generatorMenu").addClass("hideSection");
-		});
-
-});
-/*var addToGenerator = function(e) {
-	var generator = document.getElementById("formGenerator");
-	if(e == 1) {
-		var formElement = document.createElement("input");
-		formElement.setAttribute('type','submit');
-		formElement.setAttribute('value','nazwa przycisku');
-		formElement.onclick = function () { checkMe(this,0); }
-		generator.appendChild(formElement);
-	} else if(e == 2) {
-		var formElement = document.createElement("input");
-		formElement.setAttribute('type','text');
-		formElement.setAttribute('placeholder','pole zachecajace...');
-		formElement.onclick = function () { checkMe(this,0); }
-		generator.appendChild(formElement);
-	} else if(e == 3) {
-		var formElement = document.createElement("br");
-		generator.appendChild(formElement);
-	} else {
-		console.log("Error in addToGenerator(); function ... arg != <1;3>");
-	}
-
-}*/
