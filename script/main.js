@@ -47,6 +47,17 @@ function checkMe (e,option) {
 	var urlAdress = document.getElementById("urlOfImage");
 	var altOfImage = document.getElementById("altOfImage");
 
+	var copyOfE;
+	function loadPreview(e){
+		//transition mily dla oka
+		copyOfE = $(e).clone();
+		copyOfE.removeClass("active");
+		$("#Podglad :nth-child(2)").fadeOut(1000,
+			function(){
+				$("#Podglad :nth-child(2)").replaceWith(copyOfE);
+			});
+	}
+
 	$(".generatorMenu").removeClass("hideSection");
 	$(".generatorMenu").addClass("showSection");
 	$('cookie-consent').addClass('hideSection');
@@ -62,6 +73,7 @@ function checkMe (e,option) {
 		if($(e).hasClass("image")) {
 			$("#ButtonsText").addClass("hideSection");
 			$("#Images").removeClass("hideSection");
+			loadPreview(e);
 
 			altOfImage.value = e.alt;
 			urlAdress.value = e.src;
@@ -76,6 +88,10 @@ function checkMe (e,option) {
 		} else {
 			$("#ButtonsText").removeClass("hideSection");
 			$("#Images").addClass("hideSection");
+
+			loadPreview(e);
+
+
 			var s = window.getComputedStyle(e);
 			var colorPicker = document.getElementById('colorPickerButton');
 			colorPicker = colorPicker.jscolor;
@@ -117,6 +133,7 @@ function checkMe (e,option) {
 			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, e.width, e.height, e.src, e.alt);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
+			loadPreview(e);
 		} else {
 			e.innerHTML = textOfElement.value;
 
@@ -141,6 +158,7 @@ function checkMe (e,option) {
 			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
+			loadPreview(e);
 		}
 
 	} else if(option == 2) {	//reset
@@ -151,14 +169,15 @@ function checkMe (e,option) {
 			undoCounter = undoCounter - 1;
 	  tmp = Elements[undoCounter - 1];
 		back(tmp);
-
+		loadPreview(tmp.el);
+		
 	} else if(option == 4){	// ponów
 
 		if(Elements.length > undoCounter)
 				undoCounter = undoCounter + 1;
 		tmp = Elements[undoCounter - 1];
 		back(tmp);
-
+		loadPreview(tmp.el);
 	}
 	else if (option == 5) {
 
