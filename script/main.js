@@ -170,7 +170,7 @@ function checkMe (e,option) {
 	  tmp = Elements[undoCounter - 1];
 		back(tmp);
 		loadPreview(tmp.el);
-		
+
 	} else if(option == 4){	// ponów
 
 		if(Elements.length > undoCounter)
@@ -238,9 +238,9 @@ $(window).load(function () {
 				c.innerHTML = "<div id='Moj Div'> </div>";
 				var x = document.createElement('data');
 				x.innerHTML = data;
+
 				c.appendChild(x);
 				formGenerator.innerHTML = c.innerHTML;
-
 
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
@@ -327,4 +327,8 @@ function reset (e) {
 		widthOfElement.value = s.width;
 		heightOfElement.value = s.height;
 	}
+}
+
+function showHidden(){
+		$("div[style='display: none;']").show();
 }
