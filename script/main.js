@@ -24,6 +24,7 @@ var Elements = [];
 var undoCounter = 0;
 var TARGETED_ELEMENT;
 var Clicked = null;
+var headerPos = 0;
 
 
 function checkMe (e,option) {
@@ -90,7 +91,6 @@ function checkMe (e,option) {
 			$("#Images").addClass("hideSection");
 
 			loadPreview(e);
-
 
 			var s = window.getComputedStyle(e);
 			var colorPicker = document.getElementById('colorPickerButton');
@@ -186,7 +186,7 @@ function checkMe (e,option) {
 		ajaxCall(adress);
 
   } else {
-		console.log("Error in checkMe(); function ... arg != <0;4>");
+		console.log("Error in checkMe(); function ... arg != <0;5>");
 	}
 }
 
@@ -231,20 +231,40 @@ $(window).load(function () {
 				var page = document.getElementById("toFetchFormFromOtherPage");
 				page.innerHTML = data;
 				var formGenerator = document.getElementById('formGenerator');
-				var outerForm = document.getElementsByTagName("form")[0];
-				formGenerator.innerHTML  = outerForm.innerHTML;
+				//var outerForm = document.getElementsByTagName("form")[0];
+				//formGenerator.innerHTML  = outerForm.innerHTML;
 
 				var c = document.createElement('div');
-				c.innerHTML = "<div id='Moj Div'> </div>";
+				c.innerHTML = "<div></div>";
 				var x = document.createElement('data');
 				x.innerHTML = data;
 
 				c.appendChild(x);
 				formGenerator.innerHTML = c.innerHTML;
 
+				var fetchElementsToSlider = function(e) {
+					var slider = document.getElementById("sliderOfElementsToEdit");
+					for(var i=0; i<e.length; i++) {
+				    	if(e[i].children.length == 0) {
+							var box = document.createElement("div");
+							box.setAttribute("class", "boxInSlider");
+							//console.log(e[i]);
+							if(e[i].tagName != "META" && e[i].tagName != "TITLE" && e[i].tagName != "IFRAME" && e[i].tagName != "SCRIPT" && e[i].tagName != "STYLE" && e[i].tagName != "NOSCRIPT") {
+								box.innerHTML = e[i].innerHTML;
+								if(box.innerHTML != "") {
+									slider.appendChild(box);
+								}
+							}
+						} else {
+							fetchElementsToSlider(e[i].children);
+						}
+
+					}
+				}
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
 				    	if(e[i].children.length == 0) {
+				    				//console.log(e[i]);
 									var x = $(e[i]);
 									if($(x).is("img")) {
 										$(x).addClass("image");
@@ -261,6 +281,7 @@ $(window).load(function () {
 				}
 					var nodes = formGenerator.childNodes;
 					attachFunctionToChildrens(nodes);
+					fetchElementsToSlider(nodes);
 				}
 			});
 		}
@@ -273,6 +294,28 @@ $(window).load(function () {
 			$(".generatorMenu").removeClass("showSection");
 			$(".generatorMenu").addClass("hideSection");
 		});
+
+		$("#slideRight").on("click", function(e) {
+	        e.preventDefault();
+	        var div = $('#sliderOfElementsToEdit');
+	        if(headerPos < div.width()) {
+	        	headerPos -= 10;
+	        }
+	        div.animate({
+	            left: headerPos +'%',
+	        });
+    	});
+    	$("#slideLeft").on("click", function(e) {
+	        e.preventDefault();
+	        var div = $('#sliderOfElementsToEdit');
+	        if(headerPos < 0) {
+	        	headerPos += 10;
+	        }
+	        div.animate({
+	            left: headerPos+'%',
+	        });
+    	});
+
 });
 
 function reset (e) {
