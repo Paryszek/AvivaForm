@@ -228,11 +228,12 @@ $(window).load(function () {
 			$.ajax({ url: adress,success: function(data) {
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				$('.generatorMenu').addClass('hideSection');
+				$('#sliderOfElementsToEdit').addClass('hideSection');
 				var page = document.getElementById("toFetchFormFromOtherPage");
 				page.innerHTML = data;
-				var formGenerator = document.getElementById('formGenerator');
+				var formGenerator = document.getElementById("formGenerator");
 				//var outerForm = document.getElementsByTagName("form")[0];
-				//formGenerator.innerHTML  = outerForm.innerHTML;
+				
 
 				var c = document.createElement('div');
 				c.innerHTML = "<div></div>";
@@ -372,6 +373,18 @@ function reset (e) {
 	}
 }
 
-function showHidden(){
+function showHidden() {
 		$("div[style='display: none;']").show();
+}
+var isVisible = false;
+function toggleElementsMenu() {
+	if(!isVisible) {
+		$('#sliderOfElementsToEdit').removeClass('hideSection');
+		$('#sliderOfElementsToEdit').addClass('showSection');
+		isVisible = true;
+	} else {
+		$('#sliderOfElementsToEdit').removeClass('showSection');
+		$('#sliderOfElementsToEdit').addClass('hideSection');
+		isVisible = false;
+	}
 }
