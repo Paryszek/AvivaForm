@@ -229,8 +229,8 @@ $(window).load(function () {
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				$('.generatorMenu').addClass('hideSection');
 				$('#sliderOfElementsToEdit').addClass('hideSection');
-				var page = document.getElementById("toFetchFormFromOtherPage");
-				page.innerHTML = data;
+				//var page = document.getElementById("toFetchFormFromOtherPage");
+				//page.innerHTML = data;
 				var formGenerator = document.getElementById("formGenerator");
 				//var outerForm = document.getElementsByTagName("form")[0];
 				
@@ -249,7 +249,6 @@ $(window).load(function () {
 				    	if(e[i].children.length == 0) {
 							var box = document.createElement("div");
 							box.setAttribute("class", "boxInSlider");
-							//console.log(e[i]);
 							if(e[i].tagName != "META" && e[i].tagName != "TITLE" && e[i].tagName != "IFRAME" && e[i].tagName != "SCRIPT" && e[i].tagName != "STYLE" && e[i].tagName != "NOSCRIPT") {
 								box.innerHTML = e[i].innerHTML;
 								if(box.innerHTML != "") {
@@ -265,7 +264,6 @@ $(window).load(function () {
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
 				    	if(e[i].children.length == 0) {
-				    				//console.log(e[i]);
 									var x = $(e[i]);
 									if($(x).is("img")) {
 										$(x).addClass("image");
@@ -273,8 +271,7 @@ $(window).load(function () {
 					         e[i].onclick = function (event) {
 										 event.preventDefault();
 										 checkMe(this,0);
-									 };
-
+									};
 						} else {
 							attachFunctionToChildrens(e[i].children);
 						}
