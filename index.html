@@ -42,6 +42,9 @@
 					dolny <input type="text" id="paddingBottom" placeholder="Padding od dołu">
 					lewy <input type="text" id="paddingLeft" placeholder="Padding od lewej">
 					prawy<input type="text" id="paddingRight" placeholder="Padding od prawej"><br />
+					<h2>Wymiary:</h2>
+					szerokość <input type="text" id="widthOfElement" placeholder="Szerokość"><br />
+					wysokość <input type="text" id="heightOfElement" placeholder="Jaka wysokosc?"><br /><br />
 				</div>
 				<div id="Images"><br />
 					Tekst alternatywny dla obrazu:
@@ -49,9 +52,6 @@
 					URL obrazu:
 					<input type="text" id="urlOfImage" placeholder="Adres URL"><br />
 				</div>
-			<h2>Wymiary:</h2>
-			szerokość <input type="text" id="widthOfElement" placeholder="Szerokość"><br />
-			wysokość <input type="text" id="heightOfElement" placeholder="Jaka wysokosc?"><br /><br />
 			<!--<input type="submit" onclick="addToGenerator(1);" value="Dodaj przycisk">
 			<input type="submit" onclick="addToGenerator(2);" value="Dodaj pole">
 			<input type="submit" onclick="addToGenerator(3);" value="Nowa linia"><br />-->
@@ -67,8 +67,8 @@
 		<!--</div>-->
 	</div>
 	<h1>Podglady: </h1>
-	<button  onclick="showHidden();">Rozwiń</button>
-	<button  onclick="toggleElementsMenu();">Menu elementów</button>
+
+	<button  class="button" onclick="toggleElementsMenu();">Menu elementów</button>
 	<div style="background-color:antiquewhite; padding:100px;" id="formGenerator"></div>
 	<!--<div style="display:none;" id="toFetchFormFromOtherPage"></div>-->
 	<div id="sliderOfElementsToEdit">

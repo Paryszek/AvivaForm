@@ -61,7 +61,7 @@ function checkMe (e,option) {
 
 	$(".generatorMenu").removeClass("hideSection");
 	$(".generatorMenu").addClass("showSection");
-	$('cookie-consent').addClass('hideSection');
+
 
 	if(option == 0) { 	//odczyt
 
@@ -79,10 +79,7 @@ function checkMe (e,option) {
 			altOfImage.value = e.alt;
 			urlAdress.value = e.src;
 
-			widthOfElement.value = e.width;
-			heightOfElement.value = e.height;
-
-			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, e.width, e.height, e.src, e.alt);
+			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.alt);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
 
@@ -125,12 +122,10 @@ function checkMe (e,option) {
 		colorPicker = colorPicker.jscolor;
 
 		if($(e).hasClass("image")) {
-			e.width = widthOfElement.value;
-			e.height = heightOfElement.value;
 			e.src = urlAdress.value;
 			e.alt = altOfImage.value;
 
-			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, e.width, e.height, e.src, e.alt);
+			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.alt);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
 			loadPreview(e);
@@ -180,7 +175,8 @@ function checkMe (e,option) {
 		loadPreview(tmp.el);
 	}
 	else if (option == 5) {
-
+		$(".generatorMenu").removeClass("showSection");
+		$(".generatorMenu").addClass("hideSection");
 		$("#loadPageFromURLScreen").removeClass("hideSection");
 		adress = $("#pageToModify").val();
 		ajaxCall(adress);
@@ -229,18 +225,15 @@ $(window).load(function () {
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				$('.generatorMenu').addClass('hideSection');
 				$('#sliderOfElementsToEdit').addClass('hideSection');
-				//var page = document.getElementById("toFetchFormFromOtherPage");
-				//page.innerHTML = data;
+
 				var formGenerator = document.getElementById("formGenerator");
-				//var outerForm = document.getElementsByTagName("form")[0];
-				
 
 				var c = document.createElement('div');
 				c.innerHTML = "<div></div>";
 				var x = document.createElement('data');
 				x.innerHTML = data;
-
 				c.appendChild(x);
+
 				formGenerator.innerHTML = c.innerHTML;
 
 				var fetchElementsToSlider = function(e) {
@@ -277,9 +270,11 @@ $(window).load(function () {
 						}
 					}
 				}
+					$('cookie-consent').addClass('hideSection');
 					var nodes = formGenerator.childNodes;
 					attachFunctionToChildrens(nodes);
 					fetchElementsToSlider(nodes);
+					$(".showhide").prepend('<button class="button"  onclick="showHidden(this);">Rozwiń</button>');
 				}
 			});
 		}
@@ -288,7 +283,6 @@ $(window).load(function () {
 			ajaxCall(adress);
 		});
 		$("#leaveEditMode").click(function(){
-			$('cookie-consent').removeClass('hideSection');
 			$(".generatorMenu").removeClass("showSection");
 			$(".generatorMenu").addClass("hideSection");
 		});
@@ -340,8 +334,6 @@ function reset (e) {
 	if($(e).hasClass("image")) {
 		altOfImage.value = e.alt;
 		urlAdress.value = e.src;
-		widthOfElement.value = e.width;
-		heightOfElement.value = e.height;
 	} else {
 		var s = window.getComputedStyle(e);
 		var colorPicker = document.getElementById('colorPickerButton');
@@ -370,9 +362,12 @@ function reset (e) {
 	}
 }
 
-function showHidden() {
+function showHidden(e) {
 		$("div[style='display: none;']").show();
+		$(e).addClass("disabled");
 }
+
+
 var isVisible = false;
 function toggleElementsMenu() {
 	if(!isVisible) {
