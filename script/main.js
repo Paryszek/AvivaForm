@@ -224,7 +224,6 @@ $(window).load(function () {
 			$.ajax({ url: adress,success: function(data) {
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				$('.generatorMenu').addClass('hideSection');
-				$("#previews").addClass("hideSection");
 				$('#sliderOfElementsToEdit').addClass('hideSection');
 
 				var formGenerator = document.getElementById("formGenerator");
@@ -286,6 +285,7 @@ $(window).load(function () {
 		$("#leaveEditMode").click(function(){
 			$(".generatorMenu").removeClass("showSection");
 			$(".generatorMenu").addClass("hideSection");
+			$("#previews").removeClass("hideSection");
 		});
 
 		$("#slideRight").on("click", function(e) {
