@@ -225,6 +225,7 @@ $(window).load(function () {
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				$('.generatorMenu').addClass('hideSection');
 				$('#sliderOfElementsToEdit').addClass('hideSection');
+				$("#previews").removeClass("hideSection");
 
 				var formGenerator = document.getElementById("formGenerator");
 
