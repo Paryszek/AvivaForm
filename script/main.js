@@ -61,7 +61,7 @@ function checkMe (e,option) {
 
 	$(".generatorMenu").removeClass("hideSection");
 	$(".generatorMenu").addClass("showSection");
-
+	$("#previews").addClass("hideSection");
 
 	if(option == 0) { 	//odczyt
 
@@ -224,6 +224,7 @@ $(window).load(function () {
 			$.ajax({ url: adress,success: function(data) {
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				$('.generatorMenu').addClass('hideSection');
+				$("#previews").addClass("hideSection");
 				$('#sliderOfElementsToEdit').addClass('hideSection');
 
 				var formGenerator = document.getElementById("formGenerator");
@@ -365,6 +366,7 @@ function reset (e) {
 function showHidden(e) {
 		$("div[style='display: none;']").show();
 		$(e).addClass("disabled");
+		$(e).hide();
 }
 
 

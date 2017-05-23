@@ -60,7 +60,7 @@ body{
 	font-size:150%;
 }
 .generatorMenu {
-    position:fixed;
+    /*position:fixed;*/
     background-color:#ecebeb;
     left:0;
     top:0;
