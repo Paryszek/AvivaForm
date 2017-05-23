@@ -21,30 +21,41 @@
 		<!--<div id="generatorSection">-->
 			<div id="leaveEditMode">x</div>
 				<div id="ButtonsText">
+						Tekst elementu:
+						<input type="text" id="textOfElement" placeholder="Tekst elementu"><br />
+						Nazwa elementu (dla przycisków)
+						<input type="text" id="nameOfElement" placeholder="Nazwa elementu"><br />
+						Kolor tekstu elementu:
+			 			<button class="jscolor {valueElement:'colorOfElement', onFineChange:'setTextColor(this)'}" id="colorPickerButton">
+						Pick text color
+						</button><br />
+						<p style="display:none" id="colorOfElement"> </p>
+						Placeholder (Wiadomość zachęcająca elementu):
+						<input type="text" id="placeHolder" placeholder="Wiadomość zachęcająca elementu"><br />
+						<h2>Marginesy (odstęp od innych elementów):</h2>
+						górny <input type="text" id="marginTop" placeholder="Margines od góry">
+						dolny <input type="text" id="marginBottom" placeholder="Margines od dołu">
+						lewy <input type="text" id="marginLeft" placeholder="Margines od lewej">
+						prawy <input type="text" id="marginRight" placeholder="Margines od prawej"><br />
+						<h2>Padding (odstęp wypełniający element):</h2>
+						górny <input type="text" id="paddingTop" placeholder="Padding od góry">
+						dolny <input type="text" id="paddingBottom" placeholder="Padding od dołu">
+						lewy <input type="text" id="paddingLeft" placeholder="Padding od lewej">
+						prawy<input type="text" id="paddingRight" placeholder="Padding od prawej"><br />
+						<h2>Wymiary:</h2>
+						szerokość <input type="text" id="widthOfElement" placeholder="Szerokość"><br />
+						wysokość <input type="text" id="heightOfElement" placeholder="Jaka wysokosc?"><br /><br />
+				</div>
+				<div id="Url">
 					Tekst elementu:
-					<input type="text" id="textOfElement" placeholder="Tekst elementu"><br />
-					Nazwa elementu (dla przycisków)
-					<input type="text" id="nameOfElement" placeholder="Nazwa elementu"><br />
+					<input type="text" id="textOfElementUrl" placeholder="Tekst elementu"><br />
 					Kolor tekstu elementu:
-		 			<button class="jscolor {valueElement:'colorOfElement', onFineChange:'setTextColor(this)'}" id="colorPickerButton">
+					<button class="jscolor {valueElement:'colorOfElement', onFineChange:'setTextColor(this)'}" id="colorPickerButtonUrl">
 					Pick text color
 					</button><br />
-					<p style="display:none" id="colorOfElement"> </p>
-					Placeholder (Wiadomość zachęcająca elementu):
-					<input type="text" id="placeHolder" placeholder="Wiadomość zachęcająca elementu"><br />
-					<h2>Marginesy (odstęp od innych elementów):</h2>
-					górny <input type="text" id="marginTop" placeholder="Margines od góry">
-					dolny <input type="text" id="marginBottom" placeholder="Margines od dołu">
-					lewy <input type="text" id="marginLeft" placeholder="Margines od lewej">
-					prawy <input type="text" id="marginRight" placeholder="Margines od prawej"><br />
-					<h2>Padding (odstęp wypełniający element):</h2>
-					górny <input type="text" id="paddingTop" placeholder="Padding od góry">
-					dolny <input type="text" id="paddingBottom" placeholder="Padding od dołu">
-					lewy <input type="text" id="paddingLeft" placeholder="Padding od lewej">
-					prawy<input type="text" id="paddingRight" placeholder="Padding od prawej"><br />
-					<h2>Wymiary:</h2>
-					szerokość <input type="text" id="widthOfElement" placeholder="Szerokość"><br />
-					wysokość <input type="text" id="heightOfElement" placeholder="Jaka wysokosc?"><br /><br />
+					<p style="display:none" id="colorOfElementUrl"> </p>
+					Adres hiperłącza:
+					<input type="text" id="linkUrl" placeholder="Adres WWW strony"><br/>
 				</div>
 				<div id="Images"><br />
 					Tekst alternatywny dla obrazu:
