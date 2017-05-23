@@ -228,7 +228,14 @@ function checkMe (e,option) {
 }
 
 function back (tmp) {
-	if($(tmp.el).hasClass("image")) {
+	if($(tmp).attr('href')) {
+		var colorPicker = document.getElementById('colorPickerButton');
+		colorPicker = colorPicker.jscolor;
+		colorPicker.fromString(tmp.color);
+		tmp.el.style.color = tmp.color;
+		tmp.el.text = tmp.text;
+		tmp.el.href = tmp.url;
+	} else if($(tmp.el).hasClass("image")) {
 		tmp.el.src = tmp.src;
 		tmp.el.alt = tmp.alt;
 	} else {
@@ -381,7 +388,7 @@ function reset (e) {
 	e = TARGETED_ELEMENT;
 
 	if($(e).attr('href')) {
-		
+
 		textOfElementUrl.value = e.text;
 		linkUrl.value = e.href;
 		var s = window.getComputedStyle(e);
