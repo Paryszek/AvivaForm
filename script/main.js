@@ -250,6 +250,7 @@ $(window).load(function () {
 							var box = document.createElement("div");
 							box.setAttribute("class", "boxInSlider");
 							if(e[i].tagName != "META" && e[i].tagName != "TITLE" && e[i].tagName != "IFRAME" && e[i].tagName != "SCRIPT" && e[i].tagName != "STYLE" && e[i].tagName != "NOSCRIPT") {
+								//console.log(e[i]);
 								box.innerHTML = e[i].innerHTML;
 								if(box.innerHTML != "") {
 									slider.appendChild(box);
@@ -293,24 +294,29 @@ $(window).load(function () {
 			$(".generatorMenu").addClass("hideSection");
 		});
 
-		$("#slideRight").on("click", function(e) {
+		$("#slideDown").on("click", function(e) {
 	        e.preventDefault();
 	        var div = $('#sliderOfElementsToEdit');
-	        if(headerPos < div.width()) {
-	        	headerPos -= 10;
+	        //console.log(div.height());
+	        console.log(window);
+	        if((-1 * headerPos) < (div.height() - window.innerHeight)) {
+	        	headerPos -= 200;
+	        	console.log(headerPos);
+
 	        }
 	        div.animate({
-	            left: headerPos +'%',
+	            top: headerPos +'px',
 	        });
     	});
-    	$("#slideLeft").on("click", function(e) {
+    	$("#slideUp").on("click", function(e) {
 	        e.preventDefault();
 	        var div = $('#sliderOfElementsToEdit');
 	        if(headerPos < 0) {
-	        	headerPos += 10;
+	        	headerPos += 200;
+	        	console.log(headerPos);
 	        }
 	        div.animate({
-	            left: headerPos+'%',
+	            top: headerPos+'px',
 	        });
     	});
 

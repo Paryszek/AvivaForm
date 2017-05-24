@@ -83,7 +83,7 @@ body{
     position:fixed;
     top:0;
     left:0;
-    width:1000%;
+    max-width:100px;
     height:auto;
     background-color: white;
     opacity:0.9;
@@ -93,11 +93,12 @@ body{
     white-space: nowrap;
     overflow: hidden;
     height:auto;
+    padding:3px;
     max-height: 100px;
     width:auto;
-    max-width: 300px;
+    width: 100px;
     margin-right:5px;
-    border-style: dashed;
+    border-style: solid;
     float:left;
 }
 .boxInSlider:hover {
@@ -105,29 +106,35 @@ body{
     transform: scale(0.9,0.9);
     cursor:pointer;
 }
-    #slideLeft {
+    #slideUp {
         position:fixed;
-        color:green;
-        left:0;
-        top:1%;
-        z-index:1000;
+        color:blue;
+        left:110px;
+        top:40%;
+        z-index:10000000000;
         font-size:50px;
+        transform: rotate(90deg);
     }
-    #slideRight {
-        color:green;
+    #slideDown {
+        color:blue;
         position:fixed;
-        left:98%;
-        top:1%;
-        z-index:1000;
+        left:110px;
+        top:50%;
+        z-index:10000000000;
         font-size:50px;
+        transform: rotate(90deg);
     }
-    #slideRight:hover {
+    #slideUp:hover {
+        cursor:pointer;
+        transition: all 1s;
+        color:yellow;
+        transform: rotate(90deg);
+
+    }
+    #slideDown:hover {
+        color:yellow;
         transition: all 1s;
         transform: scale(0.9,0.9);
         cursor:pointer;
-    }
-    #slideLeft:hover {
-        transition: all 1s;
-        transform: scale(0.9,0.9);
-        cursor:pointer;
+        transform: rotate(90deg);
     }
