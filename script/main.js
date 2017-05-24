@@ -1,5 +1,5 @@
 class element {
-	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h, s, a) {
+	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h, s, a, u) {
 		this.el = e;
 		this.text = t;
 		this.name = n;
@@ -17,6 +17,7 @@ class element {
 		this.height = h;
 		this.src = s;
 		this.alt = a;
+		this.url = u;
 	}
 }
 
@@ -48,6 +49,10 @@ function checkMe (e,option) {
 	var urlAdress = document.getElementById("urlOfImage");
 	var altOfImage = document.getElementById("altOfImage");
 
+	var textOfElementUrl = document.getElementById("textOfElementUrl");
+	var colorOfElementUrl = document.getElementById("colorOfElementUrl");
+	var linkUrl = document.getElementById("linkUrl");
+
 	var copyOfE;
 	function loadPreview(e){
 		//transition mily dla oka
@@ -61,7 +66,7 @@ function checkMe (e,option) {
 
 	$(".generatorMenu").removeClass("hideSection");
 	$(".generatorMenu").addClass("showSection");
-	$('cookie-consent').addClass('hideSection');
+	$("#previews").addClass("hideSection");
 
 	if(option == 0) { 	//odczyt
 
@@ -71,22 +76,38 @@ function checkMe (e,option) {
 
 		TARGETED_ELEMENT = e;
 
-		if($(e).hasClass("image")) {
+		if($(e).attr('href')) {
 			$("#ButtonsText").addClass("hideSection");
+			$("#Images").addClass("hideSection");
+			$("#Url").removeClass("hideSection");
+			loadPreview(e);
+			var s = window.getComputedStyle(e);
+			var colorPicker = document.getElementById('colorPickerButtonUrl');
+			colorPicker = colorPicker.jscolor;
+
+			textOfElementUrl.value = e.text;
+			colorPicker.fromString(s.color);
+			linkUrl.value = e.href;
+
+			var el = new element (e, e.text, null, e.style.color, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
+			Elements.push(el);
+			undoCounter = undoCounter + 1;
+
+		} else if($(e).hasClass("image")) {
+			$("#ButtonsText").addClass("hideSection");
+			$("#Url").addClass("hideSection");
 			$("#Images").removeClass("hideSection");
 			loadPreview(e);
 
 			altOfImage.value = e.alt;
 			urlAdress.value = e.src;
 
-			widthOfElement.value = e.width;
-			heightOfElement.value = e.height;
-
-			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, e.width, e.height, e.src, e.alt);
+			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.alt, null);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
 
 		} else {
+			$("#Url").addClass("hideSection");
 			$("#ButtonsText").removeClass("hideSection");
 			$("#Images").addClass("hideSection");
 
@@ -114,7 +135,7 @@ function checkMe (e,option) {
 			widthOfElement.value = s.width;
 			heightOfElement.value = s.height;
 
-			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null);
+			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null, null);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
 		}
@@ -124,13 +145,28 @@ function checkMe (e,option) {
 		var colorPicker = document.getElementById('colorPickerButton');
 		colorPicker = colorPicker.jscolor;
 
-		if($(e).hasClass("image")) {
-			e.width = widthOfElement.value;
-			e.height = heightOfElement.value;
+		if($(e).attr('href')) {
+			$("#ButtonsText").addClass("hideSection");
+			$("#Images").addClass("hideSection");
+			$("#Url").removeClass("hideSection");
+
+			var colorPicker = document.getElementById('colorPickerButtonUrl');
+			colorPicker = colorPicker.jscolor;
+			e.text = textOfElementUrl.value;
+			e.style.color = "#" + colorPicker.toString();
+			e.href = linkUrl.value;
+
+			var el = new element (e, e.text, null, e.style.color, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
+			Elements.push(el);
+			undoCounter = undoCounter + 1;
+
+			loadPreview(e);
+
+		} else if($(e).hasClass("image")) {
 			e.src = urlAdress.value;
 			e.alt = altOfImage.value;
 
-			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, e.width, e.height, e.src, e.alt);
+			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.alt, null);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
 			loadPreview(e);
@@ -155,7 +191,7 @@ function checkMe (e,option) {
 			e.style.width = widthOfElement.value;
 			e.style.height = heightOfElement.value;
 
-			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null);
+			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null, null);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
 			loadPreview(e);
@@ -180,7 +216,8 @@ function checkMe (e,option) {
 		loadPreview(tmp.el);
 	}
 	else if (option == 5) {
-
+		$(".generatorMenu").removeClass("showSection");
+		$(".generatorMenu").addClass("hideSection");
 		$("#loadPageFromURLScreen").removeClass("hideSection");
 		adress = $("#pageToModify").val();
 		ajaxCall(adress);
@@ -191,7 +228,14 @@ function checkMe (e,option) {
 }
 
 function back (tmp) {
-	if($(tmp.el).hasClass("image")) {
+	if($(tmp).attr('href')) {
+		var colorPicker = document.getElementById('colorPickerButton');
+		colorPicker = colorPicker.jscolor;
+		colorPicker.fromString(tmp.color);
+		tmp.el.style.color = tmp.color;
+		tmp.el.text = tmp.text;
+		tmp.el.href = tmp.url;
+	} else if($(tmp.el).hasClass("image")) {
 		tmp.el.src = tmp.src;
 		tmp.el.alt = tmp.alt;
 	} else {
@@ -229,18 +273,16 @@ $(window).load(function () {
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				$('.generatorMenu').addClass('hideSection');
 				$('#sliderOfElementsToEdit').addClass('hideSection');
-				//var page = document.getElementById("toFetchFormFromOtherPage");
-				//page.innerHTML = data;
+				$("#previews").removeClass("hideSection");
+
 				var formGenerator = document.getElementById("formGenerator");
-				//var outerForm = document.getElementsByTagName("form")[0];
-				
 
 				var c = document.createElement('div');
 				c.innerHTML = "<div></div>";
 				var x = document.createElement('data');
 				x.innerHTML = data;
-
 				c.appendChild(x);
+
 				formGenerator.innerHTML = c.innerHTML;
 
 				var fetchElementsToSlider = function(e) {
@@ -278,9 +320,11 @@ $(window).load(function () {
 						}
 					}
 				}
+					$('cookie-consent').addClass('hideSection');
 					var nodes = formGenerator.childNodes;
 					attachFunctionToChildrens(nodes);
 					fetchElementsToSlider(nodes);
+					$(".showhide").prepend('<button class="button"  onclick="showHidden(this);">Rozwiń</button>');
 				}
 			});
 		}
@@ -289,9 +333,9 @@ $(window).load(function () {
 			ajaxCall(adress);
 		});
 		$("#leaveEditMode").click(function(){
-			$('cookie-consent').removeClass('hideSection');
 			$(".generatorMenu").removeClass("showSection");
 			$(".generatorMenu").addClass("hideSection");
+			$("#previews").removeClass("hideSection");
 		});
 
 		$("#slideDown").on("click", function(e) {
@@ -341,13 +385,25 @@ function reset (e) {
 	var heightOfElement = document.getElementById("heightOfElement");
 	var urlAdress = document.getElementById("urlOfImage");
 	var altOfImage = document.getElementById("altOfImage");
+
+
+	var colorOfElementUrl = document.getElementById("colorOfElementUrl");
+	var linkUrl = document.getElementById("linkUrl");
+	var textOfElementUrl = document.getElementById("textOfElementUrl");
+
 	e = TARGETED_ELEMENT;
 
-	if($(e).hasClass("image")) {
+	if($(e).attr('href')) {
+
+		textOfElementUrl.value = e.text;
+		linkUrl.value = e.href;
+		var s = window.getComputedStyle(e);
+		var colorPicker = document.getElementById('colorPickerButtonUrl');
+		colorPicker = colorPicker.jscolor;
+		colorPicker.fromString(s.color);
+	} else if($(e).hasClass("image")) {
 		altOfImage.value = e.alt;
 		urlAdress.value = e.src;
-		widthOfElement.value = e.width;
-		heightOfElement.value = e.height;
 	} else {
 		var s = window.getComputedStyle(e);
 		var colorPicker = document.getElementById('colorPickerButton');
@@ -376,9 +432,13 @@ function reset (e) {
 	}
 }
 
-function showHidden() {
+function showHidden(e) {
 		$("div[style='display: none;']").show();
+		$(e).addClass("disabled");
+		$(e).hide();
 }
+
+
 var isVisible = false;
 function toggleElementsMenu() {
 	if(!isVisible) {
