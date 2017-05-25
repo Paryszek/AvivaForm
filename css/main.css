@@ -144,3 +144,13 @@ body{
         cursor:pointer;
         transform: rotate(90deg);
     }
+#menu {
+    position:fixed;
+    width:auto;
+    height:auto;
+    z-index:100000000000;
+    background:gray;
+    opacity:0.9;
+    top:0;
+    left:0;
+}

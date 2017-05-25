@@ -26,7 +26,21 @@ var undoCounter = 0;
 var TARGETED_ELEMENT;
 var Clicked = null;
 var headerPos = 0;
+var cursorX;
+var cursorY;
 
+function editElement() {
+	$(".generatorMenu").removeClass("hideSection");
+	$(".generatorMenu").addClass("showSection");
+	$("#previews").addClass("hideSection");
+	$("#menu").removeClass("showSection");
+	$("#menu").addClass("hideSection");
+}
+
+function closeMenu() {
+	$("#menu").removeClass("showSection");
+	$("#menu").addClass("hideSection");
+}
 
 function checkMe (e,option) {
 
@@ -54,6 +68,9 @@ function checkMe (e,option) {
 	var linkUrl = document.getElementById("linkUrl");
 
 	var copyOfE;
+
+	
+
 	function loadPreview(e){
 		//transition mily dla oka
 		copyOfE = $(e).clone();
@@ -63,17 +80,18 @@ function checkMe (e,option) {
 				$("#Podglad :nth-child(2)").replaceWith(copyOfE);
 			});
 	}
+	$("#menu").removeClass("hideSection");
+	$("#menu").css({top: cursorY+'px', left: cursorX+'px'});
+	$("#menu").addClass("showSection");
 
-	$(".generatorMenu").removeClass("hideSection");
-	$(".generatorMenu").addClass("showSection");
-	$("#previews").addClass("hideSection");
+
+
+	
 
 	if(option == 0) { 	//odczyt
-
 		$(Clicked).removeClass("active");
 		Clicked = e;
 		$(e).addClass("active");
-
 		TARGETED_ELEMENT = e;
 
 		if($(e).attr('href')) {
@@ -266,7 +284,7 @@ function back (tmp) {
 	}
 	reset(tmp);
 }
-
+$(document).ready(function() {$("#menu").addClass("hideSection");});
 $(window).load(function () {
 		function ajaxCall(adress) {
 			$.ajax({ url: adress,success: function(data) {
@@ -276,7 +294,7 @@ $(window).load(function () {
 				$("#previews").removeClass("hideSection");
 
 				var formGenerator = document.getElementById("formGenerator");
-
+				isMenuActive = false;
 				var c = document.createElement('div');
 				c.innerHTML = "<div></div>";
 				var x = document.createElement('data');
@@ -338,15 +356,17 @@ $(window).load(function () {
 			$("#previews").removeClass("hideSection");
 		});
 
+		document.onmousemove = function(e) {
+		    cursorX = e.pageX;
+		    cursorY = e.pageY;
+		    //console.log(cursorX + " " + cursorY);
+		}
+
 		$("#slideDown").on("click", function(e) {
 	        e.preventDefault();
 	        var div = $('#sliderOfElementsToEdit');
-	        //console.log(div.height());
-	        console.log(window);
 	        if((-1 * headerPos) < (div.height() - window.innerHeight)) {
 	        	headerPos -= 200;
-	        	console.log(headerPos);
-
 	        }
 	        div.animate({
 	            top: headerPos +'px',
@@ -363,6 +383,7 @@ $(window).load(function () {
 	            top: headerPos+'px',
 	        });
     	});
+    	
 
 });
 
