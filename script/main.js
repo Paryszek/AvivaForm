@@ -357,8 +357,9 @@ $(window).load(function () {
 		});
 
 		document.onmousemove = function(e) {
+			var ScrollY = $(window).scrollTop();
 		    cursorX = e.pageX;
-		    cursorY = e.pageY;
+		    cursorY = e.pageY - ScrollY;
 		    //console.log(cursorX + " " + cursorY);
 		}
 
