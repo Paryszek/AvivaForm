@@ -80,15 +80,11 @@ function checkMe (e,option) {
 				$("#Podglad :nth-child(2)").replaceWith(copyOfE);
 			});
 	}
-	$("#menu").removeClass("hideSection");
-	$("#menu").css({top: cursorY+'px', left: cursorX+'px'});
-	$("#menu").addClass("showSection");
-
-
-
-	
 
 	if(option == 0) { 	//odczyt
+		$("#menu").removeClass("hideSection");
+		$("#menu").css({top: cursorY+'px', left: cursorX+'px'});
+		$("#menu").addClass("showSection");
 		$(Clicked).removeClass("active");
 		Clicked = e;
 		$(e).addClass("active");
@@ -357,10 +353,8 @@ $(window).load(function () {
 		});
 
 		document.onmousemove = function(e) {
-			var ScrollY = $(window).scrollTop();
 		    cursorX = e.pageX;
-		    cursorY = e.pageY - ScrollY;
-		    //console.log(cursorX + " " + cursorY);
+		    cursorY = e.pageY;
 		}
 
 		$("#slideDown").on("click", function(e) {
@@ -378,7 +372,6 @@ $(window).load(function () {
 	        var div = $('#sliderOfElementsToEdit');
 	        if(headerPos < 0) {
 	        	headerPos += 200;
-	        	console.log(headerPos);
 	        }
 	        div.animate({
 	            top: headerPos+'px',

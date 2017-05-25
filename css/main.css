@@ -145,7 +145,7 @@ body{
         transform: rotate(90deg);
     }
 #menu {
-    position:fixed;
+    position:absolute;
     width:auto;
     height:auto;
     z-index:100000000000;
