@@ -31,8 +31,9 @@
 						Kolor tekstu elementu:
 			 			<button class="jscolor {valueElement:'colorOfElement', onFineChange:'setTextColor(this)'}" id="colorPickerButton">
 						Pick text color
-						</button><br />
-						<p style="display:none" id="colorOfElement"> </p>
+						</button>
+						<input type="text" id="colorOfElement">
+						<br />
 						Placeholder (Wiadomość zachęcająca elementu):
 						<input type="text" id="placeHolder" placeholder="Wiadomość zachęcająca elementu"><br />
 						<h2>Marginesy (odstęp od innych elementów):</h2>
@@ -53,10 +54,11 @@
 					Tekst elementu:
 					<input type="text" id="textOfElementUrl" placeholder="Tekst elementu"><br />
 					Kolor tekstu elementu:
-					<button class="jscolor {valueElement:'colorOfElement', onFineChange:'setTextColor(this)'}" id="colorPickerButtonUrl">
+					<button class="jscolor {valueElement:'colorOfElementUrl', onFineChange:'setTextColor(this)'}" id="colorPickerButtonUrl">
 					Pick text color
-					</button><br />
-					<p style="display:none" id="colorOfElementUrl"> </p>
+					</button>
+					<input type="text" id="colorOfElementUrl">
+					<br />
 					Adres hiperłącza:
 					<input type="text" id="linkUrl" placeholder="Adres WWW strony"><br/>
 				</div>
