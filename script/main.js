@@ -32,6 +32,7 @@ var cursorY;
 function editElement() {
 	$(".generatorMenu").removeClass("hideSection");
 	$(".generatorMenu").addClass("showSection");
+	$("#leaveEditMode").css("zIndex", 100000000);
 	$("#previews").addClass("hideSection");
 	$("#menu").removeClass("showSection");
 	$("#menu").addClass("hideSection");
@@ -75,6 +76,10 @@ function checkMe (e,option) {
 		//transition mily dla oka
 		copyOfE = $(e).clone();
 		copyOfE.removeClass("active");
+		$(copyOfE).click(function (event) {
+			event.preventDefault();
+			window.open(this.href);
+		});
 		$("#Podglad :nth-child(2)").fadeOut(1000,
 			function(){
 				$("#Podglad :nth-child(2)").replaceWith(copyOfE);
@@ -95,15 +100,11 @@ function checkMe (e,option) {
 			$("#Images").addClass("hideSection");
 			$("#Url").removeClass("hideSection");
 			loadPreview(e);
-			var s = window.getComputedStyle(e);
-			var colorPicker = document.getElementById('colorPickerButtonUrl');
-			colorPicker = colorPicker.jscolor;
 
 			textOfElementUrl.value = e.text;
-			colorPicker.fromString(s.color);
 			linkUrl.value = e.href;
 
-			var el = new element (e, e.text, null, e.style.color, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
+			var el = new element (e, e.text, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
 
@@ -164,13 +165,11 @@ function checkMe (e,option) {
 			$("#Images").addClass("hideSection");
 			$("#Url").removeClass("hideSection");
 
-			var colorPicker = document.getElementById('colorPickerButtonUrl');
-			colorPicker = colorPicker.jscolor;
+
 			e.text = textOfElementUrl.value;
-			e.style.color = "#" + colorPicker.toString();
 			e.href = linkUrl.value;
 
-			var el = new element (e, e.text, null, e.style.color, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
+			var el = new element (e, e.text, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
 			Elements.push(el);
 			undoCounter = undoCounter + 1;
 
@@ -243,10 +242,6 @@ function checkMe (e,option) {
 
 function back (tmp) {
 	if($(tmp).attr('href')) {
-		var colorPicker = document.getElementById('colorPickerButton');
-		colorPicker = colorPicker.jscolor;
-		colorPicker.fromString(tmp.color);
-		tmp.el.style.color = tmp.color;
 		tmp.el.text = tmp.text;
 		tmp.el.href = tmp.url;
 	} else if($(tmp.el).hasClass("image")) {
