@@ -69,7 +69,7 @@ function checkMe (e,option) {
 
 	var copyOfE;
 
-	
+
 
 	function loadPreview(e){
 		//transition mily dla oka
@@ -131,7 +131,7 @@ function checkMe (e,option) {
 			var colorPicker = document.getElementById('colorPickerButton');
 			colorPicker = colorPicker.jscolor;
 
-			textOfElement.value = e.innerHTML;
+			textOfElement.value = e.innerText;
 			nameOfElement.value = e.value;
 			colorPicker.fromString(s.color);
 			placeHolder.value = e.placeholder;
@@ -325,11 +325,25 @@ $(window).load(function () {
 									if($(x).is("img")) {
 										$(x).addClass("image");
 									}
-					         e[i].onclick = function (event) {
-										 event.preventDefault();
-										 checkMe(this,0);
+									if($(e[i]).is('b')) {
+									 console.log($(e[i]));
+									 x = e[i].parentElement;
+									 console.log(x);
+			 						 x.onclick = function (event) {
+			 							 event.preventDefault();
+			 							 checkMe(this,0);
+			 						 };
+								 }
+				         e[i].onclick = function (event) {
+									 event.preventDefault();
+									 checkMe(this,0);
 									};
-						} else {
+						} else if($(e[i]).is('strong')) {
+							e[i].onclick = function (event) {
+								event.preventDefault();
+								checkMe(this,0);
+						 };
+					 }	 else {
 							attachFunctionToChildrens(e[i].children);
 						}
 					}
@@ -377,9 +391,11 @@ $(window).load(function () {
 	            top: headerPos+'px',
 	        });
     	});
-    	
+
 
 });
+
+
 
 function reset (e) {
 	var textOfElement = document.getElementById("textOfElement");
