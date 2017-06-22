@@ -10,7 +10,6 @@ This application is designed to help edit your forms on websites. It is designed
 1. Supported browsers:
    - Mozzilla Firefox
    - Chrome
-    - Opera
 2. Website/Form to edit on the same server/cloud
 3. JQuery 1.11 support
 ### Instalation
