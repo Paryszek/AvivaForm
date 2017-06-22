@@ -21,8 +21,104 @@ class element {
 	}
 }
 
-var Elements = [];
-var undoCounter = 0;
+
+class History {
+	constructor () {
+		this.list = [];
+	}
+
+	//dodaje nowa hiostorie
+	add(e){				
+		var existingIndex = this.checkIfExists(e.el);
+		if(existingIndex < 0){
+			var Elementy = new Elements;
+			Elementy.put(e);
+			this.list.push(Elementy);
+		}
+	}
+
+	//zapisuje zmiany
+	save(e){
+			var existingIndex = this.checkIfExists(e.el);
+			var Elementy = 	this.list[existingIndex];
+			Elementy.put(e);
+	}
+
+	//cofa
+	undo(e){
+		var indexOfElement = this.checkIfExists(e);
+		if(indexOfElement >= 0){
+			var thisElementHistory = this.list[indexOfElement];
+			if(thisElementHistory.undoCounter > 1){
+				var changes = thisElementHistory.getprev();
+				back(changes);
+				loadPreview(changes.el);
+			}
+			else alert("Koniec historii!");
+		}
+			
+	}
+
+	//ponawia
+	do(e){
+		var indexOfElement = this.checkIfExists(e);
+		if(indexOfElement >= 0){
+			var thisElementHistory = this.list[indexOfElement];
+			if(thisElementHistory.ElementsList.length > thisElementHistory.undoCounter){
+				var changes = thisElementHistory.getnext();
+				back(changes);
+				loadPreview(changes.el);
+			}
+			else alert("Koniec historii!");
+		}
+			
+	}
+
+	//wyszukuje historie elementu
+	checkIfExists(e){
+		for(var j = 0; j < this.list.length; ++j){
+			var thisElement = this.list[j].ElementsList[0];
+			if(thisElement.el == e){
+				return j;
+			} 
+		}
+		return -1;
+	}
+}
+
+
+class Elements{
+	constructor(){
+		this.ElementsList = [];
+		this.undoCounter = 0;
+	}
+
+	put(e){
+		this.ElementsList.push(e);
+		++ this.undoCounter;
+	}
+
+	getnext(){
+		if(this.undoCounter >= this.ElementsList.length){
+			return -1;
+		}
+		++ this.undoCounter
+		return this.ElementsList[this.undoCounter -1]
+	}
+
+	getprev(){
+		if(this.undoCounter < 0){
+			return -1;
+		}
+			-- this.undoCounter;
+			return this.ElementsList[this.undoCounter - 1];
+	}
+}
+
+
+//var Elements = [];
+//var undoCounter = 0;
+Historia = new History;
 var TARGETED_ELEMENT;
 var Clicked = null;
 var headerPos = 0;
@@ -41,6 +137,21 @@ function editElement() {
 function closeMenu() {
 	$("#menu").removeClass("showSection");
 	$("#menu").addClass("hideSection");
+}
+
+
+function loadPreview(e){
+	//transition mily dla oka
+	copyOfE = $(e).clone();
+	copyOfE.removeClass("active");
+	$(copyOfE).click(function (event) {
+		event.preventDefault();
+		window.open(this.href);
+	});
+	$("#Podglad :nth-child(2)").fadeOut(1000,
+		function(){
+			$("#Podglad :nth-child(2)").replaceWith(copyOfE);
+		});
 }
 
 function checkMe (e,option) {
@@ -71,21 +182,6 @@ function checkMe (e,option) {
 	var copyOfE;
 
 
-
-	function loadPreview(e){
-		//transition mily dla oka
-		copyOfE = $(e).clone();
-		copyOfE.removeClass("active");
-		$(copyOfE).click(function (event) {
-			event.preventDefault();
-			window.open(this.href);
-		});
-		$("#Podglad :nth-child(2)").fadeOut(1000,
-			function(){
-				$("#Podglad :nth-child(2)").replaceWith(copyOfE);
-			});
-	}
-
 	if(option == 0) { 	//odczyt
 		$("#menu").removeClass("hideSection");
 		$("#menu").css({top: cursorY+'px', left: cursorX+'px'});
@@ -94,6 +190,7 @@ function checkMe (e,option) {
 		Clicked = e;
 		$(e).addClass("active");
 		TARGETED_ELEMENT = e;
+
 
 		if($(e).attr('href')) {
 			$("#ButtonsText").addClass("hideSection");
@@ -105,8 +202,10 @@ function checkMe (e,option) {
 			linkUrl.value = e.href;
 
 			var el = new element (e, e.text, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
-			Elements.push(el);
-			undoCounter = undoCounter + 1;
+			Historia.add(el);
+
+			//Elements.push(el);
+			//undoCounter = undoCounter + 1;
 
 		} else if($(e).hasClass("image")) {
 			$("#ButtonsText").addClass("hideSection");
@@ -114,12 +213,17 @@ function checkMe (e,option) {
 			$("#Images").removeClass("hideSection");
 			loadPreview(e);
 
+
 			altOfImage.value = e.alt;
 			urlAdress.value = e.src;
 
+
 			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.alt, null);
-			Elements.push(el);
-			undoCounter = undoCounter + 1;
+			
+			Historia.add(el);
+
+			//Elements.push(el);
+			//undoCounter = undoCounter + 1;
 
 		} else {
 			$("#Url").addClass("hideSection");
@@ -129,6 +233,7 @@ function checkMe (e,option) {
 			loadPreview(e);
 
 			var s = window.getComputedStyle(e);
+			 
 			var colorPicker = document.getElementById('colorPickerButton');
 			colorPicker = colorPicker.jscolor;
 
@@ -151,8 +256,11 @@ function checkMe (e,option) {
 			heightOfElement.value = s.height;
 
 			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null, null);
-			Elements.push(el);
-			undoCounter = undoCounter + 1;
+			
+			Historia.add(el);
+
+			//Elements.push(el);
+			//undoCounter = undoCounter + 1;
 		}
 
 	} else if(option == 1) {	//zapis
@@ -170,8 +278,11 @@ function checkMe (e,option) {
 			e.href = linkUrl.value;
 
 			var el = new element (e, e.text, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
-			Elements.push(el);
-			undoCounter = undoCounter + 1;
+			
+			Historia.save(el);
+
+			//Elements.push(el);
+			//undoCounter = undoCounter + 1;
 
 			loadPreview(e);
 
@@ -180,8 +291,11 @@ function checkMe (e,option) {
 			e.alt = altOfImage.value;
 
 			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.alt, null);
-			Elements.push(el);
-			undoCounter = undoCounter + 1;
+			
+			Historia.save(el);
+
+			//Elements.push(el);
+			//undoCounter = undoCounter + 1;
 			loadPreview(e);
 		} else {
 			e.innerHTML = textOfElement.value;
@@ -205,8 +319,11 @@ function checkMe (e,option) {
 			e.style.height = heightOfElement.value;
 
 			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null, null);
-			Elements.push(el);
-			undoCounter = undoCounter + 1;
+			
+			Historia.save(el);
+
+			//Elements.push(el);
+			//undoCounter = undoCounter + 1;
 			loadPreview(e);
 		}
 
@@ -214,19 +331,26 @@ function checkMe (e,option) {
 		reset(e);
 	} else if(option == 3) {	//cofnij
 
-		if(undoCounter > 1)
+		Historia.undo(TARGETED_ELEMENT);
+
+		/*if(undoCounter > 1)
 			undoCounter = undoCounter - 1;
 	  tmp = Elements[undoCounter - 1];
 		back(tmp);
 		loadPreview(tmp.el);
+		*/
 
 	} else if(option == 4){	// ponów
 
+		Historia.do(TARGETED_ELEMENT);
+
+		/*
 		if(Elements.length > undoCounter)
 				undoCounter = undoCounter + 1;
 		tmp = Elements[undoCounter - 1];
 		back(tmp);
 		loadPreview(tmp.el);
+		*/
 	}
 	else if (option == 5) {
 		$(".generatorMenu").removeClass("showSection");
