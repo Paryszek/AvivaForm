@@ -153,7 +153,7 @@ function checkMe (e,option) {
 			var colorPicker = document.getElementById('colorPickerButton');
 			colorPicker = colorPicker.jscolor;
 
-			textOfElement.value = e.innerText;
+			textOfElement.value = e.innerHTML;
 			nameOfElement.value = e.value;
 			colorPicker.fromString(s.color);
 			placeHolder.value = e.placeholder;
@@ -326,6 +326,7 @@ $(window).load(function () {
 
 				tmp = document.getElementsByTagName("img");
 				tmp2 = document.getElementsByTagName("video");
+				tmp3 = document.getElementsByTagName("p");
 
 				var fetchElementsToSlider = function(e) {
 					var slider = document.getElementById("sliderOfElementsToEdit");
@@ -347,6 +348,8 @@ $(window).load(function () {
 					}
 				}
 
+
+
 				var attachFunctionToImages = function(e) {
 					for(var i=0; i < e.length; i++) {
 						//	alert(e[i]);
@@ -367,12 +370,39 @@ $(window).load(function () {
 
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
-				    	if(e[i].children.length == 0) {
+							if($(e[i]).is("li")) {
+								e[i].onclick = function (event) {
+									event.preventDefault();
+									checkMe(this,0);
+								 };
+							}
+							if($(e[i]).is('strong')) {
+								console.log(e[i]);
+								e[i].parentElement.onclick = function (event) {
+									event.preventDefault();
+									checkMe(this,0);
+							 };
+						 }
+							if(e[i].children.length == 0) {
 									var x = $(e[i]);
 									if($(x).is("img")) {
 										$(x).addClass("image");
 									}
-									if($(e[i]).is('b')) {
+									if($(e[i]).is('span')) {
+										console.log($(e[i]));
+ 									 	x = e[i].parentElement;
+										x = x.childNodes;
+ 									 	for(var z=0; z < x.length; z++) {
+												t = x.item(z);
+												if($(t).is("text")) {
+													alert("cos");
+												}
+		 			 						  t.onclick = function (event) {
+		 			 							 event.preventDefault();
+		 			 							 checkMe(this,0);
+		 			 						 };
+										 }
+									} else if($(e[i]).is('b')) {
 									 console.log($(e[i]));
 									 x = e[i].parentElement;
 									 console.log(x);
@@ -385,12 +415,7 @@ $(window).load(function () {
 									 event.preventDefault();
 									 checkMe(this,0);
 									};
-						} else if($(e[i]).is('strong')) {
-							e[i].onclick = function (event) {
-								event.preventDefault();
-								checkMe(this,0);
-						 };
-					 }	 else {
+						} else {
 							attachFunctionToChildrens(e[i].children);
 						}
 					}
@@ -400,6 +425,7 @@ $(window).load(function () {
 					attachFunctionToChildrens(nodes);
 			//		attachFunctionToImages(tmp);
 					attachFunctionToVideos(tmp2);
+					attachFunctionToVideos(tmp3);
 					fetchElementsToSlider(nodes);
 					$(".showhide").prepend('<button class="button"  onclick="showHidden(this);">Rozwiń</button>');
 				},
