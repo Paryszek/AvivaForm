@@ -306,7 +306,9 @@ function back (tmp) {
 $(document).ready(function() {$("#menu").addClass("hideSection");});
 $(window).load(function () {
 		function ajaxCall(adress) {
-			$.ajax({ url: adress,success: function(data) {
+			$.ajax({ 
+				url: adress,
+				success: function(data) {
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				$('.generatorMenu').addClass('hideSection');
 				$('#sliderOfElementsToEdit').addClass('hideSection');
@@ -400,7 +402,10 @@ $(window).load(function () {
 					attachFunctionToVideos(tmp2);
 					fetchElementsToSlider(nodes);
 					$(".showhide").prepend('<button class="button"  onclick="showHidden(this);">Rozwiń</button>');
-				}
+				},
+				error: function () {
+		            alert("Zła ścieżka do formularza proszę podać jeszcze raz.");
+		        }
 			});
 		}
 		$("#goToURL").click(function(){
