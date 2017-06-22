@@ -1,5 +1,5 @@
 class element {
-	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h, s, a, u) {
+	constructor (e, t, n, c, p, mT, mL, mR, mB, pL, pT, pR, pB, w, h, s, a, u, post) {
 		this.el = e;
 		this.text = t;
 		this.name = n;
@@ -18,6 +18,7 @@ class element {
 		this.src = s;
 		this.alt = a;
 		this.url = u;
+		this.poster = post;
 	}
 }
 
@@ -176,8 +177,10 @@ function checkMe (e,option) {
 	var altOfImage = document.getElementById("altOfImage");
 
 	var textOfElementUrl = document.getElementById("textOfElementUrl");
-	var colorOfElementUrl = document.getElementById("colorOfElementUrl");
 	var linkUrl = document.getElementById("linkUrl");
+
+	var posterVideo = document.getElementById("posterOfVideo");
+	var videoUrl = document.getElementById("urlOfVideo");
 
 	var copyOfE;
 
@@ -191,11 +194,25 @@ function checkMe (e,option) {
 		$(e).addClass("active");
 		TARGETED_ELEMENT = e;
 
+			if($(e).is("video")) {
+				$("#ButtonsText").addClass("hideSection");
+				$("#Images").addClass("hideSection");
+				$("#Url").addClass("hideSection");
+				$("#Videos").removeClass("hideSection");
+				$("#Podglad").addClass("hideSection");
 
-		if($(e).attr('href')) {
+				posterVideo.value = e.poster;
+				videoUrl.value = e.src;
+
+				var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.poster);
+				Elements.push(el);
+				undoCounter = undoCounter + 1;
+			} else if($(e).attr('href')) {
 			$("#ButtonsText").addClass("hideSection");
 			$("#Images").addClass("hideSection");
 			$("#Url").removeClass("hideSection");
+			$("#Videos").addClass("hideSection");
+			$("#Podglad").removeClass("hideSection");
 			loadPreview(e);
 
 			textOfElementUrl.value = e.text;
@@ -211,6 +228,8 @@ function checkMe (e,option) {
 			$("#ButtonsText").addClass("hideSection");
 			$("#Url").addClass("hideSection");
 			$("#Images").removeClass("hideSection");
+			$("#Videos").addClass("hideSection");
+			$("#Podglad").removeClass("hideSection");
 			loadPreview(e);
 
 
@@ -229,7 +248,8 @@ function checkMe (e,option) {
 			$("#Url").addClass("hideSection");
 			$("#ButtonsText").removeClass("hideSection");
 			$("#Images").addClass("hideSection");
-
+			$("#Videos").addClass("hideSection");
+			$("#Podglad").removeClass("hideSection");
 			loadPreview(e);
 
 			var s = window.getComputedStyle(e);
@@ -237,7 +257,7 @@ function checkMe (e,option) {
 			var colorPicker = document.getElementById('colorPickerButton');
 			colorPicker = colorPicker.jscolor;
 
-			textOfElement.value = e.innerText;
+			textOfElement.value = e.innerHTML;
 			nameOfElement.value = e.value;
 			colorPicker.fromString(s.color);
 			placeHolder.value = e.placeholder;
@@ -268,11 +288,15 @@ function checkMe (e,option) {
 		var colorPicker = document.getElementById('colorPickerButton');
 		colorPicker = colorPicker.jscolor;
 
-		if($(e).attr('href')) {
-			$("#ButtonsText").addClass("hideSection");
-			$("#Images").addClass("hideSection");
-			$("#Url").removeClass("hideSection");
+		if($(e).is("video")) {
+			e.poster = posterVideo.value;
+			e.src = videoUrl.value;
 
+			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.poster);
+			Elements.push(el);
+			undoCounter = undoCounter + 1;
+
+		} else if($(e).attr('href')) {
 
 			e.text = textOfElementUrl.value;
 			e.href = linkUrl.value;
@@ -365,7 +389,10 @@ function checkMe (e,option) {
 }
 
 function back (tmp) {
-	if($(tmp).attr('href')) {
+	if($(tmp).is("video")) {
+		tmp.el.src = tmp.url;
+		tmp.el.poster = tmp.post;
+	} else if($(tmp).attr('href')) {
 		tmp.el.text = tmp.text;
 		tmp.el.href = tmp.url;
 	} else if($(tmp.el).hasClass("image")) {
@@ -402,7 +429,9 @@ function back (tmp) {
 $(document).ready(function() {$("#menu").addClass("hideSection");});
 $(window).load(function () {
 		function ajaxCall(adress) {
-			$.ajax({ url: adress,success: function(data) {
+			$.ajax({ 
+				url: adress,
+				success: function(data) {
 				$('#loadPageFromURLScreen').addClass('hideSection');
 				$('.generatorMenu').addClass('hideSection');
 				$('#sliderOfElementsToEdit').addClass('hideSection');
@@ -417,6 +446,10 @@ $(window).load(function () {
 				c.appendChild(x);
 
 				formGenerator.innerHTML = c.innerHTML;
+
+				tmp = document.getElementsByTagName("img");
+				tmp2 = document.getElementsByTagName("video");
+				tmp3 = document.getElementsByTagName("p");
 
 				var fetchElementsToSlider = function(e) {
 					var slider = document.getElementById("sliderOfElementsToEdit");
@@ -437,14 +470,62 @@ $(window).load(function () {
 
 					}
 				}
+
+
+
+				var attachFunctionToImages = function(e) {
+					for(var i=0; i < e.length; i++) {
+						//	alert(e[i]);
+							e[i].parentElement.onclick = function (event) {
+						 	};
+					}
+				}
+
+				var attachFunctionToVideos = function(e) {
+					for(var i=0; i < e.length; i++) {
+							e[i].onclick = function (event) {
+									event.preventDefault();
+									checkMe(this, 0);
+							};
+					}
+				}
+
+
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
-				    	if(e[i].children.length == 0) {
+							if($(e[i]).is("li")) {
+								e[i].onclick = function (event) {
+									event.preventDefault();
+									checkMe(this,0);
+								 };
+							}
+							if($(e[i]).is('strong')) {
+								console.log(e[i]);
+								e[i].parentElement.onclick = function (event) {
+									event.preventDefault();
+									checkMe(this,0);
+							 };
+						 }
+							if(e[i].children.length == 0) {
 									var x = $(e[i]);
 									if($(x).is("img")) {
 										$(x).addClass("image");
 									}
-									if($(e[i]).is('b')) {
+									if($(e[i]).is('span')) {
+										console.log($(e[i]));
+ 									 	x = e[i].parentElement;
+										x = x.childNodes;
+ 									 	for(var z=0; z < x.length; z++) {
+												t = x.item(z);
+												if($(t).is("text")) {
+													alert("cos");
+												}
+		 			 						  t.onclick = function (event) {
+		 			 							 event.preventDefault();
+		 			 							 checkMe(this,0);
+		 			 						 };
+										 }
+									} else if($(e[i]).is('b')) {
 									 console.log($(e[i]));
 									 x = e[i].parentElement;
 									 console.log(x);
@@ -457,12 +538,7 @@ $(window).load(function () {
 									 event.preventDefault();
 									 checkMe(this,0);
 									};
-						} else if($(e[i]).is('strong')) {
-							e[i].onclick = function (event) {
-								event.preventDefault();
-								checkMe(this,0);
-						 };
-					 }	 else {
+						} else {
 							attachFunctionToChildrens(e[i].children);
 						}
 					}
@@ -470,9 +546,15 @@ $(window).load(function () {
 					$('cookie-consent').addClass('hideSection');
 					var nodes = formGenerator.childNodes;
 					attachFunctionToChildrens(nodes);
+			//		attachFunctionToImages(tmp);
+					attachFunctionToVideos(tmp2);
+					attachFunctionToVideos(tmp3);
 					fetchElementsToSlider(nodes);
 					$(".showhide").prepend('<button class="button"  onclick="showHidden(this);">Rozwiń</button>');
-				}
+				},
+				error: function () {
+		            alert("Zła ścieżka do formularza proszę podać jeszcze raz.");
+		        }
 			});
 		}
 		$("#goToURL").click(function(){
@@ -541,16 +623,20 @@ function reset (e) {
 	var linkUrl = document.getElementById("linkUrl");
 	var textOfElementUrl = document.getElementById("textOfElementUrl");
 
+	var posterVideo = document.getElementById("posterOfVideo");
+	var videoUrl = document.getElementById("urlOfVideo");
+
 	e = TARGETED_ELEMENT;
 
-	if($(e).attr('href')) {
+
+	if($(e).is("video")) {
+		posterVideo.value = e.poster;
+		videoUrl.value = e.src;
+	} else if($(e).attr('href')) {
 
 		textOfElementUrl.value = e.text;
 		linkUrl.value = e.href;
-		var s = window.getComputedStyle(e);
-		var colorPicker = document.getElementById('colorPickerButtonUrl');
-		colorPicker = colorPicker.jscolor;
-		colorPicker.fromString(s.color);
+
 	} else if($(e).hasClass("image")) {
 		altOfImage.value = e.alt;
 		urlAdress.value = e.src;
