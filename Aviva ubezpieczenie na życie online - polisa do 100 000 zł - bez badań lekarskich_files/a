@@ -1,0 +1,101 @@
+
+
+
+function gwp_isInt(v){
+        if((parseFloat(v) == parseInt(v)) && !isNaN(v)){
+                return true;
+        } else {
+                return false;
+        }
+}
+
+function gwp_getParam(n) {
+        var params = location.search.substr(location.search.indexOf("?")+1);
+        var ret = "unknown";
+        params = params.split("&");
+        for (var i=0; i<params.length; i++) {
+                buf = params[i].split("=");
+                if ([buf[0]] == n) {
+                        ret = buf[1];
+                }
+        }
+        return ret;
+}
+
+function gwp_getTransId() {
+        var qTransId = parseInt(gwp_getParam('gwpTransId'));
+        if (!qTransId || "unknown" == qTransId || !gwp_isInt(qTransId) || 0 >= qTransId) {
+                return 1;
+        }
+        return qTransId;
+}
+
+function gwp_getStepId() {
+        var qStepId = parseInt(gwp_getParam('gwpStepId'));
+        if (!qStepId || "unknown" == qStepId || !gwp_isInt(qStepId) || 0 >= qStepId) {
+                return 1;
+        }
+        return qStepId;
+}
+
+function gwp_getSrcId() {
+        return gwp_getParam('gwpSrcId').substring(0,64);
+}
+function gwp_getExtParams() {
+        var outText = '';
+
+        var gwpExtParamsFromReq = JSON.parse('[]');
+        if (gwpExtParamsFromReq && Array.isArray(gwpExtParamsFromReq) && gwpExtParamsFromReq.length > 0) {
+            gwpExtParams = gwpExtParamsFromReq;
+        }
+
+        if (typeof gwpExtParams === 'undefined' || !gwpExtParams) {
+            return outText;
+        }
+
+        for (index = 0; index < gwpExtParams.length; ++index) {
+                outText += gwpExtParams[index].name + '=' + gwpExtParams[index].value + '&';
+        }
+        if (outText != null && outText.length > 0) {
+                return '&' + outText.substring(0,outText.length-1);
+        }
+
+        return outText;
+}
+
+function gwp_getProducts() {
+    var result = '';
+
+    var gwpProducts = JSON.parse('[]');
+    if (!(gwpProducts && Array.isArray(gwpProducts) && gwpProducts.length > 0)) {
+        gwpProducts = !(typeof gwpPxInfo === 'undefined' || !gwpPxInfo) ? gwpPxInfo.products : null;
+
+        if (typeof gwpProducts === 'undefined' || !gwpProducts) {
+            return result;
+        }
+    }
+
+    for (i = 0; i < gwpProducts.length; ++i) {
+        result += gwpProducts[i].product + ',';
+
+    }
+
+    if (result != null && result.length > 0) {
+        result = '&productId=' + escape(result.substring(0, result.length-1));
+
+    }
+
+    return result;
+}
+
+var gwpSn     = 'aviva_conv';
+var gwpDotAction = 'conversion';
+var advTrackingTx = '';
+var gwpPar    = escape('transId='+gwp_getTransId()+'&stepId='+gwp_getStepId()+"&srcId="+gwp_getSrcId()+"&gwpAction=view" + gwp_getExtParams() + gwp_getProducts() + (advTrackingTx ? '&advTrackingTx=' + advTrackingTx : ""));
+var gwpDot    = new Image(1,1);
+var gwpPage   = new String(window.location);
+
+gwpDot.src    = window.location.protocol+"//dot.wp.pl/s"+Math.round(Math.random()*1E10)+"/px.gif?srv="+gwpSn+"&action="+gwpDotAction+"&par="+gwpPar+"&pg="+'https%3A//smartlife.aviva.pl/smartlife/%23%21/Symulacja';
+
+
+
