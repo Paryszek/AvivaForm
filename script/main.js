@@ -116,6 +116,7 @@ function checkMe (e,option) {
 			$("#Images").addClass("hideSection");
 			$("#Url").removeClass("hideSection");
 			$("#Videos").addClass("hideSection");
+			$("#Podglad").removeClass("hideSection");
 			loadPreview(e);
 
 			textOfElementUrl.value = e.text;
@@ -130,6 +131,7 @@ function checkMe (e,option) {
 			$("#Url").addClass("hideSection");
 			$("#Images").removeClass("hideSection");
 			$("#Videos").addClass("hideSection");
+			$("#Podglad").removeClass("hideSection");
 			loadPreview(e);
 
 			altOfImage.value = e.alt;
@@ -144,6 +146,7 @@ function checkMe (e,option) {
 			$("#ButtonsText").removeClass("hideSection");
 			$("#Images").addClass("hideSection");
 			$("#Videos").addClass("hideSection");
+			$("#Podglad").removeClass("hideSection");
 			loadPreview(e);
 
 			var s = window.getComputedStyle(e);
