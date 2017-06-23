@@ -449,7 +449,6 @@ $(window).load(function () {
 
 				tmp = document.getElementsByTagName("img");
 				tmp2 = document.getElementsByTagName("video");
-				tmp3 = document.getElementsByTagName("p");
 
 				var fetchElementsToSlider = function(e) {
 					var slider = document.getElementById("sliderOfElementsToEdit");
@@ -492,32 +491,16 @@ $(window).load(function () {
 
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
-						if(e[i].children.length == 1 && $(e[i]).is('strong')) {
-							e[i].onclick = function (event) {
-								this.innerHTML = this.innerText;
-								event.preventDefault();
-								checkMe(this,0);
-							 };
-						} else if(e[i].children.length == 0) {
+							attachTagsToText(e[i]);
+							if(e[i].children.length == 0) {
 									var x = $(e[i]);
-									if($(e[i]).is('strong')) {
-									 		attachTagsToText(e[i]);
-								 	}
-									if($(x).is("img")) {
-										$(x).addClass("image");
-									}
-									if($(e[i]).is('span')) {
- 									 	 attachTagsToText(e[i]);
-									} else if($(e[i]).is('b')) {
-									 attachTagsToText(e[i]);
-								 }
-				         e[i].onclick = function (event) {
+				         	e[i].onclick = function (event) {
 									 event.preventDefault();
 									 checkMe(this,0);
 									};
-						} else {
-							attachFunctionToChildrens(e[i].children);
-						}
+							} else {
+								attachFunctionToChildrens(e[i].children);
+							}
 					}
 				}
 					$('cookie-consent').addClass('hideSection');
@@ -525,7 +508,6 @@ $(window).load(function () {
 					attachFunctionToChildrens(nodes);
 			//		attachFunctionToImages(tmp);
 					attachFunctionToVideos(tmp2);
-					attachFunctionToVideos(tmp3);
 					fetchElementsToSlider(nodes);
 					$(".showhide").prepend('<button class="button"  onclick="showHidden(this);">Rozwiń</button>');
 				},
