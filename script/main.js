@@ -493,16 +493,7 @@ $(window).load(function () {
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
 							if($(e[i]).is('strong')) {
-								xx = e[i].parentElement;
-								x = xx.childNodes;
-								for(var z=0; z < x.length; z++) {
-									if(x[z].nodeType == 3) {
-										var c = document.createElement('span');
-										tmp = x[z].cloneNode();
-										c.appendChild(tmp);
-										xx.replaceChild(c, x[z]);
-									}
-								}
+							 attachTagsToText(e[i]);
 						 }
 							if(e[i].children.length == 0) {
 									var x = $(e[i]);
@@ -510,23 +501,9 @@ $(window).load(function () {
 										$(x).addClass("image");
 									}
 									if($(e[i]).is('span')) {
- 									 	xx = e[i].parentElement;
-										x = xx.childNodes;
-										for(var z=0; z < x.length; z++) {
-											if(x[z].nodeType == 3) {
-												var c = document.createElement('span');
-												tmp = x[z].cloneNode();
-												c.appendChild(tmp);
-												xx.replaceChild(c, x[z]);
-											}
-										}
-
+ 									 	 attachTagsToText(e[i]);
 									} else if($(e[i]).is('b')) {
-									 x = e[i].parentElement;
-			 						 x.onclick = function (event) {
-			 							 event.preventDefault();
-			 							 checkMe(this,0);
-			 						 };
+									 attachTagsToText(e[i]);
 								 }
 				         e[i].onclick = function (event) {
 									 event.preventDefault();
@@ -668,6 +645,18 @@ function showHidden(e) {
 		$(e).hide();
 }
 
+function attachTagsToText(e) {
+ xx = e.parentElement;
+ x = xx.childNodes;
+ for(var z=0; z < x.length; z++) {
+	 if(x[z].nodeType == 3) {
+		 var c = document.createElement('span');
+		 tmp = x[z].cloneNode();
+		 c.appendChild(tmp);
+		 xx.replaceChild(c, x[z]);
+	 }
+ }
+}
 
 var isVisible = false;
 function toggleElementsMenu() {
