@@ -492,11 +492,17 @@ $(window).load(function () {
 
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
-							if($(e[i]).is('strong')) {
-							 attachTagsToText(e[i]);
-						 }
-							if(e[i].children.length == 0) {
+						if(e[i].children.length == 1 && $(e[i]).is('strong')) {
+							e[i].onclick = function (event) {
+								this.innerHTML = this.innerText;
+								event.preventDefault();
+								checkMe(this,0);
+							 };
+						} else if(e[i].children.length == 0) {
 									var x = $(e[i]);
+									if($(e[i]).is('strong')) {
+									 		attachTagsToText(e[i]);
+								 	}
 									if($(x).is("img")) {
 										$(x).addClass("image");
 									}
