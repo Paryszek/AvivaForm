@@ -450,6 +450,7 @@ $(window).load(function () {
 				tmp = document.getElementsByTagName("img");
 				tmp2 = document.getElementsByTagName("video");
 
+
 				var fetchElementsToSlider = function(e) {
 					var slider = document.getElementById("sliderOfElementsToEdit");
 					for(var i=0; i<e.length; i++) {
@@ -494,6 +495,9 @@ $(window).load(function () {
 							attachTagsToText(e[i]);
 							if(e[i].children.length == 0) {
 									var x = $(e[i]);
+									if($(x).is("img")) {
+										$(x).addClass("image");
+									}
 				         	e[i].onclick = function (event) {
 									 event.preventDefault();
 									 checkMe(this,0);
