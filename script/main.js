@@ -29,7 +29,7 @@ class History {
 	}
 
 	//dodaje nowa hiostorie
-	add(e){				
+	add(e){
 		var existingIndex = this.checkIfExists(e.el);
 		if(existingIndex < 0){
 			var Elementy = new Elements;
@@ -57,7 +57,7 @@ class History {
 			}
 			else alert("Koniec historii!");
 		}
-			
+
 	}
 
 	//ponawia
@@ -72,7 +72,7 @@ class History {
 			}
 			else alert("Koniec historii!");
 		}
-			
+
 	}
 
 	//wyszukuje historie elementu
@@ -81,7 +81,7 @@ class History {
 			var thisElement = this.list[j].ElementsList[0];
 			if(thisElement.el == e){
 				return j;
-			} 
+			}
 		}
 		return -1;
 	}
@@ -238,7 +238,7 @@ function checkMe (e,option) {
 
 
 			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.alt, null);
-			
+
 			Historia.add(el);
 
 			//Elements.push(el);
@@ -253,7 +253,7 @@ function checkMe (e,option) {
 			loadPreview(e);
 
 			var s = window.getComputedStyle(e);
-			 
+
 			var colorPicker = document.getElementById('colorPickerButton');
 			colorPicker = colorPicker.jscolor;
 
@@ -276,7 +276,7 @@ function checkMe (e,option) {
 			heightOfElement.value = s.height;
 
 			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null, null);
-			
+
 			Historia.add(el);
 
 			//Elements.push(el);
@@ -302,7 +302,7 @@ function checkMe (e,option) {
 			e.href = linkUrl.value;
 
 			var el = new element (e, e.text, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
-			
+
 			Historia.save(el);
 
 			//Elements.push(el);
@@ -315,7 +315,7 @@ function checkMe (e,option) {
 			e.alt = altOfImage.value;
 
 			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.alt, null);
-			
+
 			Historia.save(el);
 
 			//Elements.push(el);
@@ -343,7 +343,7 @@ function checkMe (e,option) {
 			e.style.height = heightOfElement.value;
 
 			var el = new element (e, e.innerHTML, e.value, e.style.color, e.placeHolder, e.style.marginTop, e.style.marginBottom, e.style.marginLeft, e.style.marginRight, e.style.paddingTop, e.style.paddingBottom, e.style.paddingLeft, e.style.paddingRight, e.style.width, e.style.height, null, null, null);
-			
+
 			Historia.save(el);
 
 			//Elements.push(el);
@@ -429,7 +429,7 @@ function back (tmp) {
 $(document).ready(function() {$("#menu").addClass("hideSection");});
 $(window).load(function () {
 		function ajaxCall(adress) {
-			$.ajax({ 
+			$.ajax({
 				url: adress,
 				success: function(data) {
 				$('#loadPageFromURLScreen').addClass('hideSection');
@@ -458,7 +458,6 @@ $(window).load(function () {
 							var box = document.createElement("div");
 							box.setAttribute("class", "boxInSlider");
 							if(e[i].tagName != "META" && e[i].tagName != "TITLE" && e[i].tagName != "IFRAME" && e[i].tagName != "SCRIPT" && e[i].tagName != "STYLE" && e[i].tagName != "NOSCRIPT") {
-								//console.log(e[i]);
 								box.innerHTML = e[i].innerHTML;
 								if(box.innerHTML != "") {
 									slider.appendChild(box);
@@ -493,18 +492,17 @@ $(window).load(function () {
 
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
-							if($(e[i]).is("li")) {
-								e[i].onclick = function (event) {
-									event.preventDefault();
-									checkMe(this,0);
-								 };
-							}
 							if($(e[i]).is('strong')) {
-								console.log(e[i]);
-								e[i].parentElement.onclick = function (event) {
-									event.preventDefault();
-									checkMe(this,0);
-							 };
+								xx = e[i].parentElement;
+								x = xx.childNodes;
+								for(var z=0; z < x.length; z++) {
+									if(x[z].nodeType == 3) {
+										var c = document.createElement('span');
+										tmp = x[z].cloneNode();
+										c.appendChild(tmp);
+										xx.replaceChild(c, x[z]);
+									}
+								}
 						 }
 							if(e[i].children.length == 0) {
 									var x = $(e[i]);
@@ -512,23 +510,19 @@ $(window).load(function () {
 										$(x).addClass("image");
 									}
 									if($(e[i]).is('span')) {
-										console.log($(e[i]));
- 									 	x = e[i].parentElement;
-										x = x.childNodes;
- 									 	for(var z=0; z < x.length; z++) {
-												t = x.item(z);
-												if($(t).is("text")) {
-													alert("cos");
-												}
-		 			 						  t.onclick = function (event) {
-		 			 							 event.preventDefault();
-		 			 							 checkMe(this,0);
-		 			 						 };
-										 }
+ 									 	xx = e[i].parentElement;
+										x = xx.childNodes;
+										for(var z=0; z < x.length; z++) {
+											if(x[z].nodeType == 3) {
+												var c = document.createElement('span');
+												tmp = x[z].cloneNode();
+												c.appendChild(tmp);
+												xx.replaceChild(c, x[z]);
+											}
+										}
+
 									} else if($(e[i]).is('b')) {
-									 console.log($(e[i]));
 									 x = e[i].parentElement;
-									 console.log(x);
 			 						 x.onclick = function (event) {
 			 							 event.preventDefault();
 			 							 checkMe(this,0);
