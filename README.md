@@ -10,7 +10,7 @@ This application is designed to help edit your forms on websites. It is designed
    - Mozilla Firefox
    - Chrome
    - Safari
-2. HTML files must be on the same folder as main script (permission issues otherwise)
+2. HTML files must be on the same server (permission issues otherwise)
 3. JQuery 1.11 support
 
 ### Installation
