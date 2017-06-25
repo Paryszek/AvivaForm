@@ -139,17 +139,14 @@ function closeMenu() {
 
 
 function loadPreview(e){
-	//transition mily dla oka
 	copyOfE = $(e).clone();
 	copyOfE.removeClass("active");
 	$(copyOfE).click(function (event) {
 		event.preventDefault();
 		window.open(this.href);
 	});
-	$("#Podglad :nth-child(2)").fadeOut(1000,
-		function(){
-			$("#Podglad :nth-child(2)").replaceWith(copyOfE);
-		});
+
+	$("#Podglad :nth-child(2)").replaceWith(copyOfE);
 }
 
 function checkMe (e,option) {
@@ -410,19 +407,18 @@ $(window).load(function () {
 
 				formGenerator.innerHTML = c.innerHTML;
 
-				tmp = document.getElementsByTagName("img");
+				//tmp = document.getElementsByTagName("img");
 				tmp2 = document.getElementsByTagName("video");
 
 				var fetchElementsToSlider = function(e) {
 					var slider = document.getElementById("sliderOfElementsToEdit");
 					for(var i = 0; i<e.length; i++) {
 				    	if(e[i].children.length == 0) {
-							var box = document.createElement("img");
-							box.setAttribute("class", "boxInSlider");
 							if(e[i].tagName === "IMG") {
+								var box = document.createElement("img");
+								box.setAttribute("class", "boxInSlider");
 								box.src = e[i].src;
 								var tmp = e[i];
-								console.log(tmp);
 								box.onclick = function (event) {
 									event.preventDefault();
 									checkMe(tmp, 0);
