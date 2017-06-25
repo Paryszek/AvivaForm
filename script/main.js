@@ -139,14 +139,20 @@ function closeMenu() {
 
 
 function loadPreview(e){
-	copyOfE = $(e).clone();
-	copyOfE.removeClass("active");
-	$(copyOfE).click(function (event) {
-		event.preventDefault();
-		window.open(this.href);
-	});
-
-	$("#Podglad :nth-child(2)").replaceWith(copyOfE);
+	if(e.tagName === "IMG") {
+		var box = document.createElement("img");
+		box.src = e.src;
+		console.log(box);
+		$("#Podglad :nth-child(2)").replaceWith(box);
+	} else {
+		copyOfE = $(e).clone();
+		copyOfE.removeClass("active");
+		$(copyOfE).click(function (event) {
+			event.preventDefault();
+			window.open(this.href);
+		});	
+		$("#Podglad :nth-child(2)").replaceWith(copyOfE);
+	}
 }
 
 function checkMe (e,option) {
