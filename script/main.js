@@ -150,7 +150,7 @@ function loadPreview(e){
 		$(copyOfE).click(function (event) {
 			event.preventDefault();
 			window.open(this.href);
-		});	
+		});
 		$("#Podglad :nth-child(2)").replaceWith(copyOfE);
 	}
 }
@@ -424,10 +424,18 @@ $(window).load(function () {
 								var box = document.createElement("img");
 								box.setAttribute("class", "boxInSlider");
 								box.src = e[i].src;
+								box.alt = e[i].alt;
 								var tmp = e[i];
 								box.onclick = function (event) {
 									event.preventDefault();
-									checkMe(tmp, 0);
+									tmp = document.getElementsByTagName("img");
+									for(var i=0; i < tmp.length; i++) {
+										if(tmp[i].src == this.src) {
+											$(tmp[i]).addClass("image");
+											tmp[i].alt = this.alt;
+											checkMe(tmp[i], 0);
+										}
+									}
 								};
 								slider.appendChild(box);
 							}
