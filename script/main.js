@@ -116,9 +116,6 @@ class Elements{
 	}
 }
 
-
-//var Elements = [];
-//var undoCounter = 0;
 Historia = new History;
 var TARGETED_ELEMENT;
 var Clicked = null;
@@ -221,9 +218,6 @@ function checkMe (e,option) {
 			var el = new element (e, e.text, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.href);
 			Historia.add(el);
 
-			//Elements.push(el);
-			//undoCounter = undoCounter + 1;
-
 		} else if($(e).hasClass("image")) {
 			$("#ButtonsText").addClass("hideSection");
 			$("#Url").addClass("hideSection");
@@ -240,9 +234,6 @@ function checkMe (e,option) {
 			var el = new element (e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e.src, e.alt, null);
 
 			Historia.add(el);
-
-			//Elements.push(el);
-			//undoCounter = undoCounter + 1;
 
 		} else {
 			$("#Url").addClass("hideSection");
@@ -279,8 +270,6 @@ function checkMe (e,option) {
 
 			Historia.add(el);
 
-			//Elements.push(el);
-			//undoCounter = undoCounter + 1;
 		}
 
 	} else if(option == 1) {	//zapis
@@ -305,9 +294,6 @@ function checkMe (e,option) {
 
 			Historia.save(el);
 
-			//Elements.push(el);
-			//undoCounter = undoCounter + 1;
-
 			loadPreview(e);
 
 		} else if($(e).hasClass("image")) {
@@ -318,8 +304,6 @@ function checkMe (e,option) {
 
 			Historia.save(el);
 
-			//Elements.push(el);
-			//undoCounter = undoCounter + 1;
 			loadPreview(e);
 		} else {
 			e.innerHTML = textOfElement.value;
@@ -346,44 +330,23 @@ function checkMe (e,option) {
 
 			Historia.save(el);
 
-			//Elements.push(el);
-			//undoCounter = undoCounter + 1;
 			loadPreview(e);
 		}
 
 	} else if(option == 2) {	//reset
 		reset(e);
 	} else if(option == 3) {	//cofnij
-
 		Historia.undo(TARGETED_ELEMENT);
-
-		/*if(undoCounter > 1)
-			undoCounter = undoCounter - 1;
-	  tmp = Elements[undoCounter - 1];
-		back(tmp);
-		loadPreview(tmp.el);
-		*/
-
 	} else if(option == 4){	// ponów
-
 		Historia.do(TARGETED_ELEMENT);
-
-		/*
-		if(Elements.length > undoCounter)
-				undoCounter = undoCounter + 1;
-		tmp = Elements[undoCounter - 1];
-		back(tmp);
-		loadPreview(tmp.el);
-		*/
-	}
-	else if (option == 5) {
+	} else if (option == 5) {
 		$(".generatorMenu").removeClass("showSection");
 		$(".generatorMenu").addClass("hideSection");
 		$("#loadPageFromURLScreen").removeClass("hideSection");
 		adress = $("#pageToModify").val();
 		ajaxCall(adress);
 
-  } else {
+  	} else {
 		console.log("Error in checkMe(); function ... arg != <0;5>");
 	}
 }
@@ -450,18 +413,21 @@ $(window).load(function () {
 				tmp = document.getElementsByTagName("img");
 				tmp2 = document.getElementsByTagName("video");
 
-
 				var fetchElementsToSlider = function(e) {
 					var slider = document.getElementById("sliderOfElementsToEdit");
-					for(var i=0; i<e.length; i++) {
+					for(var i = 0; i<e.length; i++) {
 				    	if(e[i].children.length == 0) {
-							var box = document.createElement("div");
+							var box = document.createElement("img");
 							box.setAttribute("class", "boxInSlider");
-							if(e[i].tagName != "META" && e[i].tagName != "TITLE" && e[i].tagName != "IFRAME" && e[i].tagName != "SCRIPT" && e[i].tagName != "STYLE" && e[i].tagName != "NOSCRIPT") {
-								box.innerHTML = e[i].innerHTML;
-								if(box.innerHTML != "") {
-									slider.appendChild(box);
-								}
+							if(e[i].tagName === "IMG") {
+								box.src = e[i].src;
+								var tmp = e[i];
+								console.log(tmp);
+								box.onclick = function (event) {
+									event.preventDefault();
+									checkMe(tmp, 0);
+								};
+								slider.appendChild(box);
 							}
 						} else {
 							fetchElementsToSlider(e[i].children);
@@ -470,11 +436,8 @@ $(window).load(function () {
 					}
 				}
 
-
-
 				var attachFunctionToImages = function(e) {
 					for(var i=0; i < e.length; i++) {
-						//	alert(e[i]);
 							e[i].parentElement.onclick = function (event) {
 						 	};
 					}
@@ -488,7 +451,6 @@ $(window).load(function () {
 							};
 					}
 				}
-
 
 				var attachFunctionToChildrens = function(e) {
 					for(var i=0; i<e.length; i++) {
@@ -510,9 +472,10 @@ $(window).load(function () {
 					$('cookie-consent').addClass('hideSection');
 					var nodes = formGenerator.childNodes;
 					attachFunctionToChildrens(nodes);
-			//		attachFunctionToImages(tmp);
 					attachFunctionToVideos(tmp2);
 					fetchElementsToSlider(nodes);
+					//console.log(tmp);
+					//console.log(tmp2);
 					$(".showhide").prepend('<button class="button"  onclick="showHidden(this);">Rozwiń</button>');
 				},
 				error: function () {
