@@ -142,7 +142,6 @@ function loadPreview(e){
 	if(e.tagName === "IMG") {
 		var box = document.createElement("img");
 		box.src = e.src;
-		console.log(box);
 		$("#Podglad :nth-child(2)").replaceWith(box);
 	} else {
 		copyOfE = $(e).clone();
@@ -428,14 +427,9 @@ $(window).load(function () {
 								var tmp = e[i];
 								box.onclick = function (event) {
 									event.preventDefault();
-									tmp = document.getElementsByTagName("img");
-									for(var i=0; i < tmp.length; i++) {
-										if(tmp[i].src == this.src) {
-											$(tmp[i]).addClass("image");
-											tmp[i].alt = this.alt;
-											checkMe(tmp[i], 0);
-										}
-									}
+											checkMe(tmp, 0);
+										
+									
 								};
 								slider.appendChild(box);
 							}
